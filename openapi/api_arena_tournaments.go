@@ -1,7 +1,7 @@
 /*
 Lichess.org API reference
 
-# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses. 
+# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses.
 
 API version: 2.0.0
 Contact: contact@lichess.org
@@ -20,24 +20,23 @@ import (
 	"strings"
 )
 
-
 // ArenaTournamentsApiService ArenaTournamentsApi service
 type ArenaTournamentsApiService service
 
-type ApiApiTeamArenaRequest struct {
-	ctx context.Context
+type ArenaApiTeamArenaRequest struct {
+	ctx        context.Context
 	ApiService *ArenaTournamentsApiService
-	teamId interface{}
-	max *interface{}
+	teamId     interface{}
+	max        *interface{}
 }
 
 // How many tournaments to download.
-func (r ApiApiTeamArenaRequest) Max(max interface{}) ApiApiTeamArenaRequest {
+func (r ArenaApiTeamArenaRequest) Max(max interface{}) ArenaApiTeamArenaRequest {
 	r.max = &max
 	return r
 }
 
-func (r ApiApiTeamArenaRequest) Execute() (interface{}, *http.Response, error) {
+func (r ArenaApiTeamArenaRequest) Execute() (interface{}, *http.Response, error) {
 	return r.ApiService.ApiTeamArenaExecute(r)
 }
 
@@ -53,24 +52,24 @@ Tournaments are streamed as [ndjson](#section/Introduction/Streaming-with-ND-JSO
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param teamId ID of the team
- @return ApiApiTeamArenaRequest
+ @return ArenaApiTeamArenaRequest
 */
-func (a *ArenaTournamentsApiService) ApiTeamArena(ctx context.Context, teamId interface{}) ApiApiTeamArenaRequest {
-	return ApiApiTeamArenaRequest{
+func (a *ArenaTournamentsApiService) ApiTeamArena(ctx context.Context, teamId interface{}) ArenaApiTeamArenaRequest {
+	return ArenaApiTeamArenaRequest{
 		ApiService: a,
-		ctx: ctx,
-		teamId: teamId,
+		ctx:        ctx,
+		teamId:     teamId,
 	}
 }
 
 // Execute executes the request
 //  @return interface{}
-func (a *ArenaTournamentsApiService) ApiTeamArenaExecute(r ApiApiTeamArenaRequest) (interface{}, *http.Response, error) {
+func (a *ArenaTournamentsApiService) ApiTeamArenaExecute(r ArenaApiTeamArenaRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArenaTournamentsApiService.ApiTeamArena")
@@ -143,7 +142,7 @@ func (a *ArenaTournamentsApiService) ApiTeamArenaExecute(r ApiApiTeamArenaReques
 }
 
 type ApiApiTournamentRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ArenaTournamentsApiService
 }
 
@@ -165,7 +164,7 @@ This API is used to display the [Lichess tournament schedule](https://lichess.or
 func (a *ArenaTournamentsApiService) ApiTournament(ctx context.Context) ApiApiTournamentRequest {
 	return ApiApiTournamentRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -173,10 +172,10 @@ func (a *ArenaTournamentsApiService) ApiTournament(ctx context.Context) ApiApiTo
 //  @return ArenaTournaments
 func (a *ArenaTournamentsApiService) ApiTournamentExecute(r ApiApiTournamentRequest) (*ArenaTournaments, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ArenaTournaments
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ArenaTournaments
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArenaTournamentsApiService.ApiTournament")
@@ -245,15 +244,15 @@ func (a *ArenaTournamentsApiService) ApiTournamentExecute(r ApiApiTournamentRequ
 }
 
 type ApiApiTournamentJoinRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ArenaTournamentsApiService
-	id interface{}
-	password *interface{}
-	team *interface{}
+	id         interface{}
+	password   *interface{}
+	team       *interface{}
 	pairMeAsap *interface{}
 }
 
-// The tournament password, if one is required. Can also be a [user-specific entry code](https://github.com/lichess-org/api/tree/master/example/tournament-entry-code) generated and shared by the organizer. 
+// The tournament password, if one is required. Can also be a [user-specific entry code](https://github.com/lichess-org/api/tree/master/example/tournament-entry-code) generated and shared by the organizer.
 func (r ApiApiTournamentJoinRequest) Password(password interface{}) ApiApiTournamentJoinRequest {
 	r.password = &password
 	return r
@@ -265,7 +264,7 @@ func (r ApiApiTournamentJoinRequest) Team(team interface{}) ApiApiTournamentJoin
 	return r
 }
 
-// If the tournament is started, attempt to pair the user, even if they are not connected to the tournament page. This expires after one minute, to avoid pairing a user who is long gone. You may call \\\&quot;join\\\&quot; again to extend the waiting. 
+// If the tournament is started, attempt to pair the user, even if they are not connected to the tournament page. This expires after one minute, to avoid pairing a user who is long gone. You may call \\\&quot;join\\\&quot; again to extend the waiting.
 func (r ApiApiTournamentJoinRequest) PairMeAsap(pairMeAsap interface{}) ApiApiTournamentJoinRequest {
 	r.pairMeAsap = &pairMeAsap
 	return r
@@ -289,8 +288,8 @@ Also unpauses if you had previously [paused](#operation/apiTournamentWithdraw) t
 func (a *ArenaTournamentsApiService) ApiTournamentJoin(ctx context.Context, id interface{}) ApiApiTournamentJoinRequest {
 	return ApiApiTournamentJoinRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -298,10 +297,10 @@ func (a *ArenaTournamentsApiService) ApiTournamentJoin(ctx context.Context, id i
 //  @return Ok
 func (a *ArenaTournamentsApiService) ApiTournamentJoinExecute(r ApiApiTournamentJoinRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArenaTournamentsApiService.ApiTournamentJoin")
@@ -389,28 +388,28 @@ func (a *ArenaTournamentsApiService) ApiTournamentJoinExecute(r ApiApiTournament
 }
 
 type ApiApiTournamentPostRequest struct {
-	ctx context.Context
-	ApiService *ArenaTournamentsApiService
-	clockTime *interface{}
-	clockIncrement *interface{}
-	minutes *interface{}
-	name *interface{}
-	waitMinutes *interface{}
-	startDate *interface{}
-	variant *VariantKey
-	rated *interface{}
-	position *interface{}
-	berserkable *interface{}
-	streakable *interface{}
-	hasChat *interface{}
-	description *interface{}
-	password *interface{}
-	teamBattleByTeam *interface{}
+	ctx                        context.Context
+	ApiService                 *ArenaTournamentsApiService
+	clockTime                  *interface{}
+	clockIncrement             *interface{}
+	minutes                    *interface{}
+	name                       *interface{}
+	waitMinutes                *interface{}
+	startDate                  *interface{}
+	variant                    *VariantKey
+	rated                      *interface{}
+	position                   *interface{}
+	berserkable                *interface{}
+	streakable                 *interface{}
+	hasChat                    *interface{}
+	description                *interface{}
+	password                   *interface{}
+	teamBattleByTeam           *interface{}
 	conditionsTeamMemberTeamId *interface{}
-	conditionsMinRatingRating *interface{}
-	conditionsMaxRatingRating *interface{}
-	conditionsNbRatedGameNb *interface{}
-	conditionsAllowList *interface{}
+	conditionsMinRatingRating  *interface{}
+	conditionsMaxRatingRating  *interface{}
+	conditionsNbRatedGameNb    *interface{}
+	conditionsAllowList        *interface{}
 }
 
 // Clock initial time in minutes
@@ -490,19 +489,19 @@ func (r ApiApiTournamentPostRequest) Description(description interface{}) ApiApi
 	return r
 }
 
-// Make the tournament private, and restrict access with a password. You can also [generate user-specific entry codes](https://github.com/lichess-org/api/tree/master/example/tournament-entry-code) based on this password. 
+// Make the tournament private, and restrict access with a password. You can also [generate user-specific entry codes](https://github.com/lichess-org/api/tree/master/example/tournament-entry-code) based on this password.
 func (r ApiApiTournamentPostRequest) Password(password interface{}) ApiApiTournamentPostRequest {
 	r.password = &password
 	return r
 }
 
-// Set the ID of a team you lead to create a team battle. The other teams can be added using the [team battle edit endpoint](#operation/apiTournamentTeamBattlePost). 
+// Set the ID of a team you lead to create a team battle. The other teams can be added using the [team battle edit endpoint](#operation/apiTournamentTeamBattlePost).
 func (r ApiApiTournamentPostRequest) TeamBattleByTeam(teamBattleByTeam interface{}) ApiApiTournamentPostRequest {
 	r.teamBattleByTeam = &teamBattleByTeam
 	return r
 }
 
-// Restrict entry to members of a team.  The teamId is the last part of a team URL, e.g. &#x60;https://lichess.org/team/coders&#x60; has teamId &#x3D; &#x60;coders&#x60;.  Leave empty to let everyone join the tournament.  Do not use this to create team battles, use &#x60;teamBattleByTeam&#x60; instead. 
+// Restrict entry to members of a team.  The teamId is the last part of a team URL, e.g. &#x60;https://lichess.org/team/coders&#x60; has teamId &#x3D; &#x60;coders&#x60;.  Leave empty to let everyone join the tournament.  Do not use this to create team battles, use &#x60;teamBattleByTeam&#x60; instead.
 func (r ApiApiTournamentPostRequest) ConditionsTeamMemberTeamId(conditionsTeamMemberTeamId interface{}) ApiApiTournamentPostRequest {
 	r.conditionsTeamMemberTeamId = &conditionsTeamMemberTeamId
 	return r
@@ -526,7 +525,7 @@ func (r ApiApiTournamentPostRequest) ConditionsNbRatedGameNb(conditionsNbRatedGa
 	return r
 }
 
-// Predefined list of usernames that are allowed to join, separated by commas. If this list is non-empty, then usernames absent from this list will be forbidden to join. Adding &#x60;%titled&#x60; to the list additionally allows any titled player to join. Example: &#x60;thibault,german11,%titled&#x60; 
+// Predefined list of usernames that are allowed to join, separated by commas. If this list is non-empty, then usernames absent from this list will be forbidden to join. Adding &#x60;%titled&#x60; to the list additionally allows any titled player to join. Example: &#x60;thibault,german11,%titled&#x60;
 func (r ApiApiTournamentPostRequest) ConditionsAllowList(conditionsAllowList interface{}) ApiApiTournamentPostRequest {
 	r.conditionsAllowList = &conditionsAllowList
 	return r
@@ -559,7 +558,7 @@ Additional restrictions:
 func (a *ArenaTournamentsApiService) ApiTournamentPost(ctx context.Context) ApiApiTournamentPostRequest {
 	return ApiApiTournamentPostRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -567,10 +566,10 @@ func (a *ArenaTournamentsApiService) ApiTournamentPost(ctx context.Context) ApiA
 //  @return interface{}
 func (a *ArenaTournamentsApiService) ApiTournamentPostExecute(r ApiApiTournamentPostRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArenaTournamentsApiService.ApiTournamentPost")
@@ -711,14 +710,14 @@ func (a *ArenaTournamentsApiService) ApiTournamentPostExecute(r ApiApiTournament
 }
 
 type ApiApiTournamentTeamBattlePostRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ArenaTournamentsApiService
-	id interface{}
-	teams *interface{}
-	nbLeaders *interface{}
+	id         interface{}
+	teams      *interface{}
+	nbLeaders  *interface{}
 }
 
-// All team IDs of the team battle, separated by commas. Make sure to always send the full list. Teams that are not in the list will be removed from the team battle.  Example: &#x60;coders,zhigalko_sergei-fan-club,hhSwTKZv&#x60; 
+// All team IDs of the team battle, separated by commas. Make sure to always send the full list. Teams that are not in the list will be removed from the team battle.  Example: &#x60;coders,zhigalko_sergei-fan-club,hhSwTKZv&#x60;
 func (r ApiApiTournamentTeamBattlePostRequest) Teams(teams interface{}) ApiApiTournamentTeamBattlePostRequest {
 	r.teams = &teams
 	return r
@@ -749,8 +748,8 @@ To update the other attributes of a team battle, use the [tournament update endp
 func (a *ArenaTournamentsApiService) ApiTournamentTeamBattlePost(ctx context.Context, id interface{}) ApiApiTournamentTeamBattlePostRequest {
 	return ApiApiTournamentTeamBattlePostRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -758,10 +757,10 @@ func (a *ArenaTournamentsApiService) ApiTournamentTeamBattlePost(ctx context.Con
 //  @return interface{}
 func (a *ArenaTournamentsApiService) ApiTournamentTeamBattlePostExecute(r ApiApiTournamentTeamBattlePostRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArenaTournamentsApiService.ApiTournamentTeamBattlePost")
@@ -848,9 +847,9 @@ func (a *ArenaTournamentsApiService) ApiTournamentTeamBattlePostExecute(r ApiApi
 }
 
 type ApiApiTournamentTerminateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ArenaTournamentsApiService
-	id interface{}
+	id         interface{}
 }
 
 func (r ApiApiTournamentTerminateRequest) Execute() (*Ok, *http.Response, error) {
@@ -870,8 +869,8 @@ Terminate an Arena tournament
 func (a *ArenaTournamentsApiService) ApiTournamentTerminate(ctx context.Context, id interface{}) ApiApiTournamentTerminateRequest {
 	return ApiApiTournamentTerminateRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -879,10 +878,10 @@ func (a *ArenaTournamentsApiService) ApiTournamentTerminate(ctx context.Context,
 //  @return Ok
 func (a *ArenaTournamentsApiService) ApiTournamentTerminateExecute(r ApiApiTournamentTerminateRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArenaTournamentsApiService.ApiTournamentTerminate")
@@ -961,27 +960,27 @@ func (a *ArenaTournamentsApiService) ApiTournamentTerminateExecute(r ApiApiTourn
 }
 
 type ApiApiTournamentUpdateRequest struct {
-	ctx context.Context
-	ApiService *ArenaTournamentsApiService
-	id interface{}
-	clockTime *interface{}
-	clockIncrement *interface{}
-	minutes *interface{}
-	name *interface{}
-	waitMinutes *interface{}
-	startDate *interface{}
-	variant *VariantKey
-	rated *interface{}
-	position *interface{}
-	berserkable *interface{}
-	streakable *interface{}
-	hasChat *interface{}
-	description *interface{}
-	password *interface{}
+	ctx                       context.Context
+	ApiService                *ArenaTournamentsApiService
+	id                        interface{}
+	clockTime                 *interface{}
+	clockIncrement            *interface{}
+	minutes                   *interface{}
+	name                      *interface{}
+	waitMinutes               *interface{}
+	startDate                 *interface{}
+	variant                   *VariantKey
+	rated                     *interface{}
+	position                  *interface{}
+	berserkable               *interface{}
+	streakable                *interface{}
+	hasChat                   *interface{}
+	description               *interface{}
+	password                  *interface{}
 	conditionsMinRatingRating *interface{}
 	conditionsMaxRatingRating *interface{}
-	conditionsNbRatedGameNb *interface{}
-	conditionsAllowList *interface{}
+	conditionsNbRatedGameNb   *interface{}
+	conditionsAllowList       *interface{}
 }
 
 // Clock initial time in minutes
@@ -1085,7 +1084,7 @@ func (r ApiApiTournamentUpdateRequest) ConditionsNbRatedGameNb(conditionsNbRated
 	return r
 }
 
-// Predefined list of usernames that are allowed to join, separated by commas. If this list is non-empty, then usernames absent from this list will be forbidden to join. Adding &#x60;%titled&#x60; to the list additionally allows any titled player to join. Example: &#x60;thibault,german11,%titled&#x60; 
+// Predefined list of usernames that are allowed to join, separated by commas. If this list is non-empty, then usernames absent from this list will be forbidden to join. Adding &#x60;%titled&#x60; to the list additionally allows any titled player to join. Example: &#x60;thibault,german11,%titled&#x60;
 func (r ApiApiTournamentUpdateRequest) ConditionsAllowList(conditionsAllowList interface{}) ApiApiTournamentUpdateRequest {
 	r.conditionsAllowList = &conditionsAllowList
 	return r
@@ -1117,8 +1116,8 @@ Additional restrictions:
 func (a *ArenaTournamentsApiService) ApiTournamentUpdate(ctx context.Context, id interface{}) ApiApiTournamentUpdateRequest {
 	return ApiApiTournamentUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -1126,10 +1125,10 @@ func (a *ArenaTournamentsApiService) ApiTournamentUpdate(ctx context.Context, id
 //  @return interface{}
 func (a *ArenaTournamentsApiService) ApiTournamentUpdateExecute(r ApiApiTournamentUpdateRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArenaTournamentsApiService.ApiTournamentUpdate")
@@ -1265,9 +1264,9 @@ func (a *ArenaTournamentsApiService) ApiTournamentUpdateExecute(r ApiApiTourname
 }
 
 type ApiApiTournamentWithdrawRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ArenaTournamentsApiService
-	id interface{}
+	id         interface{}
 }
 
 func (r ApiApiTournamentWithdrawRequest) Execute() (*Ok, *http.Response, error) {
@@ -1288,8 +1287,8 @@ It's possible to join again later. Points and streaks are preserved.
 func (a *ArenaTournamentsApiService) ApiTournamentWithdraw(ctx context.Context, id interface{}) ApiApiTournamentWithdrawRequest {
 	return ApiApiTournamentWithdrawRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -1297,10 +1296,10 @@ func (a *ArenaTournamentsApiService) ApiTournamentWithdraw(ctx context.Context, 
 //  @return Ok
 func (a *ArenaTournamentsApiService) ApiTournamentWithdrawExecute(r ApiApiTournamentWithdrawRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArenaTournamentsApiService.ApiTournamentWithdraw")
@@ -1379,13 +1378,13 @@ func (a *ArenaTournamentsApiService) ApiTournamentWithdrawExecute(r ApiApiTourna
 }
 
 type ApiApiUserNameTournamentCreatedRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ArenaTournamentsApiService
-	username interface{}
-	status *interface{}
+	username   interface{}
+	status     *interface{}
 }
 
-// Include tournaments in the given status: \&quot;Created\&quot; (10), \&quot;Started\&quot; (20), \&quot;Finished\&quot; (30)  You can add this parameter more than once to include tournaments in different statuses.   Example: &#x60;?status&#x3D;10&amp;status&#x3D;20&#x60; 
+// Include tournaments in the given status: \&quot;Created\&quot; (10), \&quot;Started\&quot; (20), \&quot;Finished\&quot; (30)  You can add this parameter more than once to include tournaments in different statuses.   Example: &#x60;?status&#x3D;10&amp;status&#x3D;20&#x60;
 func (r ApiApiUserNameTournamentCreatedRequest) Status(status interface{}) ApiApiUserNameTournamentCreatedRequest {
 	r.status = &status
 	return r
@@ -1412,8 +1411,8 @@ Tournaments are streamed as [ndjson](#section/Introduction/Streaming-with-ND-JSO
 func (a *ArenaTournamentsApiService) ApiUserNameTournamentCreated(ctx context.Context, username interface{}) ApiApiUserNameTournamentCreatedRequest {
 	return ApiApiUserNameTournamentCreatedRequest{
 		ApiService: a,
-		ctx: ctx,
-		username: username,
+		ctx:        ctx,
+		username:   username,
 	}
 }
 
@@ -1421,10 +1420,10 @@ func (a *ArenaTournamentsApiService) ApiUserNameTournamentCreated(ctx context.Co
 //  @return interface{}
 func (a *ArenaTournamentsApiService) ApiUserNameTournamentCreatedExecute(r ApiApiUserNameTournamentCreatedRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArenaTournamentsApiService.ApiUserNameTournamentCreated")
@@ -1497,16 +1496,16 @@ func (a *ArenaTournamentsApiService) ApiUserNameTournamentCreatedExecute(r ApiAp
 }
 
 type ApiGamesByTournamentRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ArenaTournamentsApiService
-	id interface{}
-	player *interface{}
-	moves *interface{}
-	pgnInJson *interface{}
-	tags *interface{}
-	clocks *interface{}
-	evals *interface{}
-	opening *interface{}
+	id         interface{}
+	player     *interface{}
+	moves      *interface{}
+	pgnInJson  *interface{}
+	tags       *interface{}
+	clocks     *interface{}
+	evals      *interface{}
+	opening    *interface{}
 }
 
 // Only games of a particular player. Leave empty to fetch games of all players.
@@ -1533,19 +1532,19 @@ func (r ApiGamesByTournamentRequest) Tags(tags interface{}) ApiGamesByTournament
 	return r
 }
 
-// Include clock comments in the PGN moves, when available.  Example: &#x60;2. exd5 { [%clk 1:01:27] } e5 { [%clk 1:01:28] }&#x60; 
+// Include clock comments in the PGN moves, when available.  Example: &#x60;2. exd5 { [%clk 1:01:27] } e5 { [%clk 1:01:28] }&#x60;
 func (r ApiGamesByTournamentRequest) Clocks(clocks interface{}) ApiGamesByTournamentRequest {
 	r.clocks = &clocks
 	return r
 }
 
-// Include analysis evaluation comments in the PGN, when available.  Example: &#x60;12. Bxf6 { [%eval 0.23] } a3 { [%eval -1.09] }&#x60; 
+// Include analysis evaluation comments in the PGN, when available.  Example: &#x60;12. Bxf6 { [%eval 0.23] } a3 { [%eval -1.09] }&#x60;
 func (r ApiGamesByTournamentRequest) Evals(evals interface{}) ApiGamesByTournamentRequest {
 	r.evals = &evals
 	return r
 }
 
-// Include the opening name.  Example: &#x60;[Opening \&quot;King&#39;s Gambit Accepted, King&#39;s Knight Gambit\&quot;]&#x60; 
+// Include the opening name.  Example: &#x60;[Opening \&quot;King&#39;s Gambit Accepted, King&#39;s Knight Gambit\&quot;]&#x60;
 func (r ApiGamesByTournamentRequest) Opening(opening interface{}) ApiGamesByTournamentRequest {
 	r.opening = &opening
 	return r
@@ -1574,8 +1573,8 @@ The game stream is throttled, depending on who is making the request:
 func (a *ArenaTournamentsApiService) GamesByTournament(ctx context.Context, id interface{}) ApiGamesByTournamentRequest {
 	return ApiGamesByTournamentRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -1583,10 +1582,10 @@ func (a *ArenaTournamentsApiService) GamesByTournament(ctx context.Context, id i
 //  @return interface{}
 func (a *ArenaTournamentsApiService) GamesByTournamentExecute(r ApiGamesByTournamentRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArenaTournamentsApiService.GamesByTournament")
@@ -1677,10 +1676,10 @@ func (a *ArenaTournamentsApiService) GamesByTournamentExecute(r ApiGamesByTourna
 }
 
 type ApiResultsByTournamentRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ArenaTournamentsApiService
-	id interface{}
-	nb *interface{}
+	id         interface{}
+	nb         *interface{}
 }
 
 // Max number of players to fetch
@@ -1712,8 +1711,8 @@ Use on finished tournaments for guaranteed consistency.
 func (a *ArenaTournamentsApiService) ResultsByTournament(ctx context.Context, id interface{}) ApiResultsByTournamentRequest {
 	return ApiResultsByTournamentRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -1721,10 +1720,10 @@ func (a *ArenaTournamentsApiService) ResultsByTournament(ctx context.Context, id
 //  @return interface{}
 func (a *ArenaTournamentsApiService) ResultsByTournamentExecute(r ApiResultsByTournamentRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArenaTournamentsApiService.ResultsByTournament")
@@ -1797,9 +1796,9 @@ func (a *ArenaTournamentsApiService) ResultsByTournamentExecute(r ApiResultsByTo
 }
 
 type ApiTeamsByTournamentRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ArenaTournamentsApiService
-	id interface{}
+	id         interface{}
 }
 
 func (r ApiTeamsByTournamentRequest) Execute() (interface{}, *http.Response, error) {
@@ -1819,8 +1818,8 @@ Teams of a team battle tournament, with top players, sorted by rank (best first)
 func (a *ArenaTournamentsApiService) TeamsByTournament(ctx context.Context, id interface{}) ApiTeamsByTournamentRequest {
 	return ApiTeamsByTournamentRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -1828,10 +1827,10 @@ func (a *ArenaTournamentsApiService) TeamsByTournament(ctx context.Context, id i
 //  @return interface{}
 func (a *ArenaTournamentsApiService) TeamsByTournamentExecute(r ApiTeamsByTournamentRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArenaTournamentsApiService.TeamsByTournament")
@@ -1901,10 +1900,10 @@ func (a *ArenaTournamentsApiService) TeamsByTournamentExecute(r ApiTeamsByTourna
 }
 
 type ApiTournamentRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ArenaTournamentsApiService
-	id interface{}
-	page *interface{}
+	id         interface{}
+	page       *interface{}
 }
 
 // Specify which page of player standings to view.
@@ -1930,8 +1929,8 @@ Get detailed info about recently finished, current, or upcoming tournament's due
 func (a *ArenaTournamentsApiService) Tournament(ctx context.Context, id interface{}) ApiTournamentRequest {
 	return ApiTournamentRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -1939,10 +1938,10 @@ func (a *ArenaTournamentsApiService) Tournament(ctx context.Context, id interfac
 //  @return interface{}
 func (a *ArenaTournamentsApiService) TournamentExecute(r ApiTournamentRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArenaTournamentsApiService.Tournament")

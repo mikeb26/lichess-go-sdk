@@ -1,7 +1,7 @@
 /*
 Lichess.org API reference
 
-# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses. 
+# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses.
 
 API version: 2.0.0
 Contact: contact@lichess.org
@@ -17,25 +17,25 @@ import (
 
 // GameJson struct for GameJson
 type GameJson struct {
-	Id interface{} `json:"id"`
-	Rated interface{} `json:"rated"`
-	Variant VariantKey `json:"variant"`
-	Speed Speed `json:"speed"`
-	Perf interface{} `json:"perf"`
-	CreatedAt interface{} `json:"createdAt"`
-	LastMoveAt interface{} `json:"lastMoveAt"`
-	Status GameStatus `json:"status"`
-	Players GameJsonPlayers `json:"players"`
-	InitialFen interface{} `json:"initialFen,omitempty"`
-	Winner interface{} `json:"winner,omitempty"`
-	Opening *GameJsonOpening `json:"opening,omitempty"`
-	Moves interface{} `json:"moves,omitempty"`
-	Pgn interface{} `json:"pgn,omitempty"`
-	DaysPerTurn interface{} `json:"daysPerTurn,omitempty"`
-	Analysis interface{} `json:"analysis,omitempty"`
-	Tournament interface{} `json:"tournament,omitempty"`
-	Swiss interface{} `json:"swiss,omitempty"`
-	Clock *GameJsonClock `json:"clock,omitempty"`
+	Id          interface{}      `json:"id"`
+	Rated       interface{}      `json:"rated"`
+	Variant     VariantKey       `json:"variant"`
+	Speed       Speed            `json:"speed"`
+	Perf        interface{}      `json:"perf"`
+	CreatedAt   interface{}      `json:"createdAt"`
+	LastMoveAt  interface{}      `json:"lastMoveAt"`
+	Status      GameStatus       `json:"status"`
+	Players     GameJsonPlayers  `json:"players"`
+	InitialFen  interface{}      `json:"initialFen,omitempty"`
+	Winner      interface{}      `json:"winner,omitempty"`
+	Opening     *GameJsonOpening `json:"opening,omitempty"`
+	Moves       interface{}      `json:"moves,omitempty"`
+	Pgn         interface{}      `json:"pgn,omitempty"`
+	DaysPerTurn interface{}      `json:"daysPerTurn,omitempty"`
+	Analysis    interface{}      `json:"analysis,omitempty"`
+	Tournament  interface{}      `json:"tournament,omitempty"`
+	Swiss       interface{}      `json:"swiss,omitempty"`
+	Clock       *GameJsonClock   `json:"clock,omitempty"`
 }
 
 // NewGameJson instantiates a new GameJson object
@@ -61,7 +61,7 @@ func NewGameJson(id interface{}, rated interface{}, variant VariantKey, speed Sp
 // but it doesn't guarantee that properties required by API are set
 func NewGameJsonWithDefaults() *GameJson {
 	this := GameJson{}
-	var variant VariantKey = standard
+	var variant VariantKey
 	this.Variant = variant
 	return &this
 }
@@ -717,5 +717,3 @@ func (v *NullableGameJson) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

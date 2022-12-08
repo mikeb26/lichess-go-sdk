@@ -1,7 +1,7 @@
 /*
 Lichess.org API reference
 
-# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses. 
+# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses.
 
 API version: 2.0.0
 Contact: contact@lichess.org
@@ -20,14 +20,13 @@ import (
 	"strings"
 )
 
-
 // ChallengesApiService ChallengesApi service
 type ChallengesApiService service
 
 type ApiAdminChallengeTokensRequest struct {
-	ctx context.Context
-	ApiService *ChallengesApiService
-	users *interface{}
+	ctx         context.Context
+	ApiService  *ChallengesApiService
+	users       *interface{}
 	description *interface{}
 }
 
@@ -63,16 +62,16 @@ If a similar token already exists for a user, it is reused. This endpoint is ide
 func (a *ChallengesApiService) AdminChallengeTokens(ctx context.Context) ApiAdminChallengeTokensRequest {
 	return ApiAdminChallengeTokensRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
 func (a *ChallengesApiService) AdminChallengeTokensExecute(r ApiAdminChallengeTokensRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChallengesApiService.AdminChallengeTokens")
@@ -149,8 +148,8 @@ func (a *ChallengesApiService) AdminChallengeTokensExecute(r ApiAdminChallengeTo
 }
 
 type ApiChallengeAcceptRequest struct {
-	ctx context.Context
-	ApiService *ChallengesApiService
+	ctx         context.Context
+	ApiService  *ChallengesApiService
 	challengeId interface{}
 }
 
@@ -172,8 +171,8 @@ You should receive a `gameStart` event on the [incoming events stream](#operatio
 */
 func (a *ChallengesApiService) ChallengeAccept(ctx context.Context, challengeId interface{}) ApiChallengeAcceptRequest {
 	return ApiChallengeAcceptRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		challengeId: challengeId,
 	}
 }
@@ -182,10 +181,10 @@ func (a *ChallengesApiService) ChallengeAccept(ctx context.Context, challengeId 
 //  @return Ok
 func (a *ChallengesApiService) ChallengeAcceptExecute(r ApiChallengeAcceptRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChallengesApiService.ChallengeAccept")
@@ -264,15 +263,15 @@ func (a *ChallengesApiService) ChallengeAcceptExecute(r ApiChallengeAcceptReques
 }
 
 type ApiChallengeAiRequest struct {
-	ctx context.Context
-	ApiService *ChallengesApiService
-	level *interface{}
-	clockLimit *interface{}
+	ctx            context.Context
+	ApiService     *ChallengesApiService
+	level          *interface{}
+	clockLimit     *interface{}
 	clockIncrement *interface{}
-	days *interface{}
-	color *interface{}
-	variant *VariantKey
-	fen *interface{}
+	days           *interface{}
+	color          *interface{}
+	variant        *VariantKey
+	fen            *interface{}
 }
 
 // AI strength
@@ -334,7 +333,7 @@ You will be notified on the [event stream](#operation/apiStreamEvent) that a new
 func (a *ChallengesApiService) ChallengeAi(ctx context.Context) ApiChallengeAiRequest {
 	return ApiChallengeAiRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -342,10 +341,10 @@ func (a *ChallengesApiService) ChallengeAi(ctx context.Context) ApiChallengeAiRe
 //  @return GameJson
 func (a *ChallengesApiService) ChallengeAiExecute(r ApiChallengeAiRequest) (*GameJson, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *GameJson
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GameJson
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChallengesApiService.ChallengeAi")
@@ -444,9 +443,9 @@ func (a *ChallengesApiService) ChallengeAiExecute(r ApiChallengeAiRequest) (*Gam
 }
 
 type ApiChallengeCancelRequest struct {
-	ctx context.Context
-	ApiService *ChallengesApiService
-	challengeId interface{}
+	ctx           context.Context
+	ApiService    *ChallengesApiService
+	challengeId   interface{}
 	opponentToken *interface{}
 }
 
@@ -473,8 +472,8 @@ Note that the ID of a game is the same as the ID of the challenge that created i
 */
 func (a *ChallengesApiService) ChallengeCancel(ctx context.Context, challengeId interface{}) ApiChallengeCancelRequest {
 	return ApiChallengeCancelRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		challengeId: challengeId,
 	}
 }
@@ -483,10 +482,10 @@ func (a *ChallengesApiService) ChallengeCancel(ctx context.Context, challengeId 
 //  @return Ok
 func (a *ChallengesApiService) ChallengeCancelExecute(r ApiChallengeCancelRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChallengesApiService.ChallengeCancel")
@@ -568,20 +567,20 @@ func (a *ChallengesApiService) ChallengeCancelExecute(r ApiChallengeCancelReques
 }
 
 type ApiChallengeCreateRequest struct {
-	ctx context.Context
-	ApiService *ChallengesApiService
-	username interface{}
-	rated *interface{}
-	clockLimit *interface{}
-	clockIncrement *interface{}
-	days *interface{}
-	color *interface{}
-	variant *VariantKey
-	fen *interface{}
+	ctx             context.Context
+	ApiService      *ChallengesApiService
+	username        interface{}
+	rated           *interface{}
+	clockLimit      *interface{}
+	clockIncrement  *interface{}
+	days            *interface{}
+	color           *interface{}
+	variant         *VariantKey
+	fen             *interface{}
 	keepAliveStream *interface{}
-	acceptByToken *interface{}
-	message *interface{}
-	rules *interface{}
+	acceptByToken   *interface{}
+	message         *interface{}
+	rules           *interface{}
 }
 
 // Game is rated and impacts players ratings
@@ -625,25 +624,25 @@ func (r ApiChallengeCreateRequest) Fen(fen interface{}) ApiChallengeCreateReques
 	return r
 }
 
-// If set, the response is streamed as [ndjson](#section/Introduction/Streaming-with-ND-JSON). The challenge is kept alive until the connection is closed by the client. When the challenge is accepted, declined or canceled, a message of the form &#x60;{\\\&quot;done\\\&quot;:\\\&quot;accepted\\\&quot;}&#x60; is sent, then the connection is closed by the server. If not set, the response is not streamed, and the challenge expires after 20s if not accepted. 
+// If set, the response is streamed as [ndjson](#section/Introduction/Streaming-with-ND-JSON). The challenge is kept alive until the connection is closed by the client. When the challenge is accepted, declined or canceled, a message of the form &#x60;{\\\&quot;done\\\&quot;:\\\&quot;accepted\\\&quot;}&#x60; is sent, then the connection is closed by the server. If not set, the response is not streamed, and the challenge expires after 20s if not accepted.
 func (r ApiChallengeCreateRequest) KeepAliveStream(keepAliveStream interface{}) ApiChallengeCreateRequest {
 	r.keepAliveStream = &keepAliveStream
 	return r
 }
 
-// Immediately accept the challenge and create the game. Pass in an OAuth token (with the &#x60;challenge:write&#x60; scope) for the receiving user. On success, the response will contain a &#x60;game&#x60; field instead of a &#x60;challenge&#x60; field.  Alternatively, consider the [bulk pairing API](#operation/bulkPairingCreate). 
+// Immediately accept the challenge and create the game. Pass in an OAuth token (with the &#x60;challenge:write&#x60; scope) for the receiving user. On success, the response will contain a &#x60;game&#x60; field instead of a &#x60;challenge&#x60; field.  Alternatively, consider the [bulk pairing API](#operation/bulkPairingCreate).
 func (r ApiChallengeCreateRequest) AcceptByToken(acceptByToken interface{}) ApiChallengeCreateRequest {
 	r.acceptByToken = &acceptByToken
 	return r
 }
 
-// **Only if &#x60;acceptByToken&#x60; is set.**  Message that is sent to each player, when the game is created. It is sent from your user account.  &#x60;{opponent}&#x60;, &#x60;{player}&#x60; and &#x60;{game}&#x60; are placeholders that will be replaced with the opponent name, player name, and the game URLs.  You can omit this field to send the default message, but if you set your own message, it must at least contain the &#x60;{game}&#x60; placeholder. 
+// **Only if &#x60;acceptByToken&#x60; is set.**  Message that is sent to each player, when the game is created. It is sent from your user account.  &#x60;{opponent}&#x60;, &#x60;{player}&#x60; and &#x60;{game}&#x60; are placeholders that will be replaced with the opponent name, player name, and the game URLs.  You can omit this field to send the default message, but if you set your own message, it must at least contain the &#x60;{game}&#x60; placeholder.
 func (r ApiChallengeCreateRequest) Message(message interface{}) ApiChallengeCreateRequest {
 	r.message = &message
 	return r
 }
 
-// Extra game rules separated by commas. Example: &#x60;noAbort,noRematch&#x60; 
+// Extra game rules separated by commas. Example: &#x60;noAbort,noRematch&#x60;
 func (r ApiChallengeCreateRequest) Rules(rules interface{}) ApiChallengeCreateRequest {
 	r.rules = &rules
 	return r
@@ -675,8 +674,8 @@ To prevent that, use the `keepAliveStream` flag described below.
 func (a *ChallengesApiService) ChallengeCreate(ctx context.Context, username interface{}) ApiChallengeCreateRequest {
 	return ApiChallengeCreateRequest{
 		ApiService: a,
-		ctx: ctx,
-		username: username,
+		ctx:        ctx,
+		username:   username,
 	}
 }
 
@@ -684,10 +683,10 @@ func (a *ChallengesApiService) ChallengeCreate(ctx context.Context, username int
 //  @return ChallengeJson
 func (a *ChallengesApiService) ChallengeCreateExecute(r ApiChallengeCreateRequest) (*ChallengeJson, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ChallengeJson
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ChallengeJson
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChallengesApiService.ChallengeCreate")
@@ -799,10 +798,10 @@ func (a *ChallengesApiService) ChallengeCreateExecute(r ApiChallengeCreateReques
 }
 
 type ApiChallengeDeclineRequest struct {
-	ctx context.Context
-	ApiService *ChallengesApiService
+	ctx         context.Context
+	ApiService  *ChallengesApiService
 	challengeId interface{}
-	reason *interface{}
+	reason      *interface{}
 }
 
 // Reason challenge was declined. It will be translated to the player&#39;s language. See [the full list in the translation file](https://github.com/ornicar/lila/blob/master/translation/source/challenge.xml#L14).
@@ -827,8 +826,8 @@ Decline an incoming challenge.
 */
 func (a *ChallengesApiService) ChallengeDecline(ctx context.Context, challengeId interface{}) ApiChallengeDeclineRequest {
 	return ApiChallengeDeclineRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:  a,
+		ctx:         ctx,
 		challengeId: challengeId,
 	}
 }
@@ -837,10 +836,10 @@ func (a *ChallengesApiService) ChallengeDecline(ctx context.Context, challengeId
 //  @return Ok
 func (a *ChallengesApiService) ChallengeDeclineExecute(r ApiChallengeDeclineRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChallengesApiService.ChallengeDecline")
@@ -922,7 +921,7 @@ func (a *ChallengesApiService) ChallengeDeclineExecute(r ApiChallengeDeclineRequ
 }
 
 type ApiChallengeListRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ChallengesApiService
 }
 
@@ -942,7 +941,7 @@ Get a list of challenges created by or targeted at you.
 func (a *ChallengesApiService) ChallengeList(ctx context.Context) ApiChallengeListRequest {
 	return ApiChallengeListRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -950,10 +949,10 @@ func (a *ChallengesApiService) ChallengeList(ctx context.Context) ApiChallengeLi
 //  @return ChallengeList200Response
 func (a *ChallengesApiService) ChallengeListExecute(r ApiChallengeListRequest) (*ChallengeList200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ChallengeList200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ChallengeList200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChallengesApiService.ChallengeList")
@@ -1022,17 +1021,17 @@ func (a *ChallengesApiService) ChallengeListExecute(r ApiChallengeListRequest) (
 }
 
 type ApiChallengeOpenRequest struct {
-	ctx context.Context
-	ApiService *ChallengesApiService
-	rated *interface{}
-	clockLimit *interface{}
+	ctx            context.Context
+	ApiService     *ChallengesApiService
+	rated          *interface{}
+	clockLimit     *interface{}
 	clockIncrement *interface{}
-	days *interface{}
-	variant *VariantKey
-	fen *interface{}
-	name *interface{}
-	rules *interface{}
-	users *interface{}
+	days           *interface{}
+	variant        *VariantKey
+	fen            *interface{}
+	name           *interface{}
+	rules          *interface{}
+	users          *interface{}
 }
 
 // Game is rated and impacts players ratings
@@ -1076,13 +1075,13 @@ func (r ApiChallengeOpenRequest) Name(name interface{}) ApiChallengeOpenRequest 
 	return r
 }
 
-// Extra game rules separated by commas. Example: &#x60;noAbort,noRematch&#x60; 
+// Extra game rules separated by commas. Example: &#x60;noAbort,noRematch&#x60;
 func (r ApiChallengeOpenRequest) Rules(rules interface{}) ApiChallengeOpenRequest {
 	r.rules = &rules
 	return r
 }
 
-// Optional pair of usernames, separated by a comma. If set, only these users will be allowed to join the game. The first username gets the white pieces. Example: &#x60;Username1,Username2&#x60; 
+// Optional pair of usernames, separated by a comma. If set, only these users will be allowed to join the game. The first username gets the white pieces. Example: &#x60;Username1,Username2&#x60;
 func (r ApiChallengeOpenRequest) Users(users interface{}) ApiChallengeOpenRequest {
 	r.users = &users
 	return r
@@ -1115,7 +1114,7 @@ with the `acceptByToken` parameter.
 func (a *ChallengesApiService) ChallengeOpen(ctx context.Context) ApiChallengeOpenRequest {
 	return ApiChallengeOpenRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -1123,10 +1122,10 @@ func (a *ChallengesApiService) ChallengeOpen(ctx context.Context) ApiChallengeOp
 //  @return interface{}
 func (a *ChallengesApiService) ChallengeOpenExecute(r ApiChallengeOpenRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChallengesApiService.ChallengeOpen")
@@ -1231,11 +1230,11 @@ func (a *ChallengesApiService) ChallengeOpenExecute(r ApiChallengeOpenRequest) (
 }
 
 type ApiChallengeStartClocksRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ChallengesApiService
-	gameId interface{}
-	token1 *interface{}
-	token2 *interface{}
+	gameId     interface{}
+	token1     *interface{}
+	token2     *interface{}
 }
 
 // OAuth token of a player
@@ -1271,8 +1270,8 @@ If the clocks have already started, the call will have no effect.
 func (a *ChallengesApiService) ChallengeStartClocks(ctx context.Context, gameId interface{}) ApiChallengeStartClocksRequest {
 	return ApiChallengeStartClocksRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
+		ctx:        ctx,
+		gameId:     gameId,
 	}
 }
 
@@ -1280,10 +1279,10 @@ func (a *ChallengesApiService) ChallengeStartClocks(ctx context.Context, gameId 
 //  @return Ok
 func (a *ChallengesApiService) ChallengeStartClocksExecute(r ApiChallengeStartClocksRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChallengesApiService.ChallengeStartClocks")
@@ -1359,10 +1358,10 @@ func (a *ChallengesApiService) ChallengeStartClocksExecute(r ApiChallengeStartCl
 }
 
 type ApiRoundAddTimeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *ChallengesApiService
-	gameId interface{}
-	seconds interface{}
+	gameId     interface{}
+	seconds    interface{}
 }
 
 func (r ApiRoundAddTimeRequest) Execute() (*Ok, *http.Response, error) {
@@ -1383,9 +1382,9 @@ Add seconds to the opponent's clock. Can be used to create games with time odds.
 func (a *ChallengesApiService) RoundAddTime(ctx context.Context, gameId interface{}, seconds interface{}) ApiRoundAddTimeRequest {
 	return ApiRoundAddTimeRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
-		seconds: seconds,
+		ctx:        ctx,
+		gameId:     gameId,
+		seconds:    seconds,
 	}
 }
 
@@ -1393,10 +1392,10 @@ func (a *ChallengesApiService) RoundAddTime(ctx context.Context, gameId interfac
 //  @return Ok
 func (a *ChallengesApiService) RoundAddTimeExecute(r ApiRoundAddTimeRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ChallengesApiService.RoundAddTime")
@@ -1411,12 +1410,6 @@ func (a *ChallengesApiService) RoundAddTimeExecute(r ApiRoundAddTimeRequest) (*O
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.seconds < 1 {
-		return localVarReturnValue, nil, reportError("seconds must be greater than 1")
-	}
-	if r.seconds > 86400 {
-		return localVarReturnValue, nil, reportError("seconds must be less than 86400")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

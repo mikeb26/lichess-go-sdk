@@ -1,7 +1,7 @@
 /*
 Lichess.org API reference
 
-# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses. 
+# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses.
 
 API version: 2.0.0
 Contact: contact@lichess.org
@@ -20,16 +20,15 @@ import (
 	"strings"
 )
 
-
 // UsersApiService UsersApi service
 type UsersApiService service
 
 type ApiApiCrosstableRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *UsersApiService
-	user1 interface{}
-	user2 interface{}
-	matchup *interface{}
+	user1      interface{}
+	user2      interface{}
+	matchup    *interface{}
 }
 
 // Whether to get the current match data, if any
@@ -58,9 +57,9 @@ If the `matchup` flag is provided, and the users are currently playing, also get
 func (a *UsersApiService) ApiCrosstable(ctx context.Context, user1 interface{}, user2 interface{}) ApiApiCrosstableRequest {
 	return ApiApiCrosstableRequest{
 		ApiService: a,
-		ctx: ctx,
-		user1: user1,
-		user2: user2,
+		ctx:        ctx,
+		user1:      user1,
+		user2:      user2,
 	}
 }
 
@@ -68,10 +67,10 @@ func (a *UsersApiService) ApiCrosstable(ctx context.Context, user1 interface{}, 
 //  @return interface{}
 func (a *UsersApiService) ApiCrosstableExecute(r ApiApiCrosstableRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersApiService.ApiCrosstable")
@@ -145,10 +144,10 @@ func (a *UsersApiService) ApiCrosstableExecute(r ApiApiCrosstableRequest) (inter
 }
 
 type ApiApiUserRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *UsersApiService
-	username interface{}
-	trophies *interface{}
+	username   interface{}
+	trophies   *interface{}
 }
 
 // Include user trophies
@@ -177,8 +176,8 @@ then extra fields might be present in the response: `followable`, `following`, `
 func (a *UsersApiService) ApiUser(ctx context.Context, username interface{}) ApiApiUserRequest {
 	return ApiApiUserRequest{
 		ApiService: a,
-		ctx: ctx,
-		username: username,
+		ctx:        ctx,
+		username:   username,
 	}
 }
 
@@ -186,10 +185,10 @@ func (a *UsersApiService) ApiUser(ctx context.Context, username interface{}) Api
 //  @return interface{}
 func (a *UsersApiService) ApiUserExecute(r ApiApiUserRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersApiService.ApiUser")
@@ -262,9 +261,9 @@ func (a *UsersApiService) ApiUserExecute(r ApiApiUserRequest) (interface{}, *htt
 }
 
 type ApiApiUserActivityRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *UsersApiService
-	username interface{}
+	username   interface{}
 }
 
 func (r ApiApiUserActivityRequest) Execute() (*http.Response, error) {
@@ -284,17 +283,17 @@ Read data to generate the activity feed of a user.
 func (a *UsersApiService) ApiUserActivity(ctx context.Context, username interface{}) ApiApiUserActivityRequest {
 	return ApiApiUserActivityRequest{
 		ApiService: a,
-		ctx: ctx,
-		username: username,
+		ctx:        ctx,
+		username:   username,
 	}
 }
 
 // Execute executes the request
 func (a *UsersApiService) ApiUserActivityExecute(r ApiApiUserActivityRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodGet
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersApiService.ApiUserActivity")
@@ -355,10 +354,10 @@ func (a *UsersApiService) ApiUserActivityExecute(r ApiApiUserActivityRequest) (*
 }
 
 type ApiApiUserPerfRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *UsersApiService
-	username interface{}
-	perf PerfType
+	username   interface{}
+	perf       PerfType
 }
 
 func (r ApiApiUserPerfRequest) Execute() (interface{}, *http.Response, error) {
@@ -380,9 +379,9 @@ Similar to the [performance pages on the website](https://lichess.org/@/thibault
 func (a *UsersApiService) ApiUserPerf(ctx context.Context, username interface{}, perf PerfType) ApiApiUserPerfRequest {
 	return ApiApiUserPerfRequest{
 		ApiService: a,
-		ctx: ctx,
-		username: username,
-		perf: perf,
+		ctx:        ctx,
+		username:   username,
+		perf:       perf,
 	}
 }
 
@@ -390,10 +389,10 @@ func (a *UsersApiService) ApiUserPerf(ctx context.Context, username interface{},
 //  @return interface{}
 func (a *UsersApiService) ApiUserPerfExecute(r ApiApiUserPerfRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersApiService.ApiUserPerf")
@@ -464,9 +463,9 @@ func (a *UsersApiService) ApiUserPerfExecute(r ApiApiUserPerfRequest) (interface
 }
 
 type ApiApiUserRatingHistoryRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *UsersApiService
-	username interface{}
+	username   interface{}
 }
 
 func (r ApiApiUserRatingHistoryRequest) Execute() (interface{}, *http.Response, error) {
@@ -489,8 +488,8 @@ Format of an entry is `[year, month, day, rating]`.
 func (a *UsersApiService) ApiUserRatingHistory(ctx context.Context, username interface{}) ApiApiUserRatingHistoryRequest {
 	return ApiApiUserRatingHistoryRequest{
 		ApiService: a,
-		ctx: ctx,
-		username: username,
+		ctx:        ctx,
+		username:   username,
 	}
 }
 
@@ -498,10 +497,10 @@ func (a *UsersApiService) ApiUserRatingHistory(ctx context.Context, username int
 //  @return interface{}
 func (a *UsersApiService) ApiUserRatingHistoryExecute(r ApiApiUserRatingHistoryRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersApiService.ApiUserRatingHistory")
@@ -571,9 +570,9 @@ func (a *UsersApiService) ApiUserRatingHistoryExecute(r ApiApiUserRatingHistoryR
 }
 
 type ApiApiUsersRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *UsersApiService
-	body *interface{}
+	body       *interface{}
 }
 
 // User IDs separated by commas.
@@ -600,7 +599,7 @@ The method is `POST` so a longer list of IDs can be sent in the request body.
 func (a *UsersApiService) ApiUsers(ctx context.Context) ApiApiUsersRequest {
 	return ApiApiUsersRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -608,10 +607,10 @@ func (a *UsersApiService) ApiUsers(ctx context.Context) ApiApiUsersRequest {
 //  @return []User
 func (a *UsersApiService) ApiUsersExecute(r ApiApiUsersRequest) ([]User, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []User
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []User
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersApiService.ApiUsers")
@@ -685,9 +684,9 @@ func (a *UsersApiService) ApiUsersExecute(r ApiApiUsersRequest) ([]User, *http.R
 }
 
 type ApiApiUsersStatusRequest struct {
-	ctx context.Context
-	ApiService *UsersApiService
-	ids *interface{}
+	ctx         context.Context
+	ApiService  *UsersApiService
+	ids         *interface{}
 	withGameIds *interface{}
 }
 
@@ -697,7 +696,7 @@ func (r ApiApiUsersStatusRequest) Ids(ids interface{}) ApiApiUsersStatusRequest 
 	return r
 }
 
-// Also return the ID of the game being played, if any, for each player, in a &#x60;playingId&#x60; field. Defaults to &#x60;false&#x60; to preserve server resources. 
+// Also return the ID of the game being played, if any, for each player, in a &#x60;playingId&#x60; field. Defaults to &#x60;false&#x60; to preserve server resources.
 func (r ApiApiUsersStatusRequest) WithGameIds(withGameIds interface{}) ApiApiUsersStatusRequest {
 	r.withGameIds = &withGameIds
 	return r
@@ -724,7 +723,7 @@ Use it to track players and know when they're connected on lichess and playing g
 func (a *UsersApiService) ApiUsersStatus(ctx context.Context) ApiApiUsersStatusRequest {
 	return ApiApiUsersStatusRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -732,10 +731,10 @@ func (a *UsersApiService) ApiUsersStatus(ctx context.Context) ApiApiUsersStatusR
 //  @return []ApiUsersStatus200ResponseInner
 func (a *UsersApiService) ApiUsersStatusExecute(r ApiApiUsersStatusRequest) ([]ApiUsersStatus200ResponseInner, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []ApiUsersStatus200ResponseInner
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []ApiUsersStatus200ResponseInner
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersApiService.ApiUsersStatus")
@@ -811,7 +810,7 @@ func (a *UsersApiService) ApiUsersStatusExecute(r ApiApiUsersStatusRequest) ([]A
 }
 
 type ApiPlayerRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *UsersApiService
 }
 
@@ -833,7 +832,7 @@ See <https://lichess.org/player>.
 func (a *UsersApiService) Player(ctx context.Context) ApiPlayerRequest {
 	return ApiPlayerRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -841,10 +840,10 @@ func (a *UsersApiService) Player(ctx context.Context) ApiPlayerRequest {
 //  @return interface{}
 func (a *UsersApiService) PlayerExecute(r ApiPlayerRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersApiService.Player")
@@ -913,10 +912,10 @@ func (a *UsersApiService) PlayerExecute(r ApiPlayerRequest) (interface{}, *http.
 }
 
 type ApiPlayerTopNbPerfTypeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *UsersApiService
-	nb interface{}
-	perfType interface{}
+	nb         interface{}
+	perfType   interface{}
 }
 
 func (r ApiPlayerTopNbPerfTypeRequest) Execute() (interface{}, *http.Response, error) {
@@ -940,9 +939,9 @@ See <https://lichess.org/player/top/200/bullet>.
 func (a *UsersApiService) PlayerTopNbPerfType(ctx context.Context, nb interface{}, perfType interface{}) ApiPlayerTopNbPerfTypeRequest {
 	return ApiPlayerTopNbPerfTypeRequest{
 		ApiService: a,
-		ctx: ctx,
-		nb: nb,
-		perfType: perfType,
+		ctx:        ctx,
+		nb:         nb,
+		perfType:   perfType,
 	}
 }
 
@@ -950,10 +949,10 @@ func (a *UsersApiService) PlayerTopNbPerfType(ctx context.Context, nb interface{
 //  @return interface{}
 func (a *UsersApiService) PlayerTopNbPerfTypeExecute(r ApiPlayerTopNbPerfTypeRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersApiService.PlayerTopNbPerfType")
@@ -968,12 +967,6 @@ func (a *UsersApiService) PlayerTopNbPerfTypeExecute(r ApiPlayerTopNbPerfTypeReq
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.nb < 1 {
-		return localVarReturnValue, nil, reportError("nb must be greater than 1")
-	}
-	if r.nb > 200 {
-		return localVarReturnValue, nil, reportError("nb must be less than 200")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1030,7 +1023,7 @@ func (a *UsersApiService) PlayerTopNbPerfTypeExecute(r ApiPlayerTopNbPerfTypeReq
 }
 
 type ApiStreamerLiveRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *UsersApiService
 }
 
@@ -1053,7 +1046,7 @@ So you can call it quite often (like once every 5 seconds).
 func (a *UsersApiService) StreamerLive(ctx context.Context) ApiStreamerLiveRequest {
 	return ApiStreamerLiveRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -1061,10 +1054,10 @@ func (a *UsersApiService) StreamerLive(ctx context.Context) ApiStreamerLiveReque
 //  @return []LightUser
 func (a *UsersApiService) StreamerLiveExecute(r ApiStreamerLiveRequest) ([]LightUser, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []LightUser
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []LightUser
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersApiService.StreamerLive")
@@ -1132,13 +1125,13 @@ func (a *UsersApiService) StreamerLiveExecute(r ApiStreamerLiveRequest) ([]Light
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiTeamIdUsersRequest struct {
-	ctx context.Context
+type UsersApiTeamIdUsersRequest struct {
+	ctx        context.Context
 	ApiService *UsersApiService
-	teamId interface{}
+	teamId     interface{}
 }
 
-func (r ApiTeamIdUsersRequest) Execute() (interface{}, *http.Response, error) {
+func (r UsersApiTeamIdUsersRequest) Execute() (interface{}, *http.Response, error) {
 	return r.ApiService.TeamIdUsersExecute(r)
 }
 
@@ -1153,24 +1146,24 @@ Members are streamed as [ndjson](#section/Introduction/Streaming-with-ND-JSON).
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param teamId
- @return ApiTeamIdUsersRequest
+ @return UsersApiTeamIdUsersRequest
 */
-func (a *UsersApiService) TeamIdUsers(ctx context.Context, teamId interface{}) ApiTeamIdUsersRequest {
-	return ApiTeamIdUsersRequest{
+func (a *UsersApiService) TeamIdUsers(ctx context.Context, teamId interface{}) UsersApiTeamIdUsersRequest {
+	return UsersApiTeamIdUsersRequest{
 		ApiService: a,
-		ctx: ctx,
-		teamId: teamId,
+		ctx:        ctx,
+		teamId:     teamId,
 	}
 }
 
 // Execute executes the request
 //  @return interface{}
-func (a *UsersApiService) TeamIdUsersExecute(r ApiTeamIdUsersRequest) (interface{}, *http.Response, error) {
+func (a *UsersApiService) TeamIdUsersExecute(r UsersApiTeamIdUsersRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersApiService.TeamIdUsers")

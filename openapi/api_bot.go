@@ -1,7 +1,7 @@
 /*
 Lichess.org API reference
 
-# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses. 
+# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses.
 
 API version: 2.0.0
 Contact: contact@lichess.org
@@ -20,14 +20,13 @@ import (
 	"strings"
 )
 
-
 // BotApiService BotApi service
 type BotApiService service
 
 type ApiApiBotOnlineRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BotApiService
-	nb *interface{}
+	nb         *interface{}
 }
 
 // How many bot users to fetch
@@ -51,7 +50,7 @@ Stream the [online bot users](https://lichess.org/player/bots), as [ndjson](#sec
 func (a *BotApiService) ApiBotOnline(ctx context.Context) ApiApiBotOnlineRequest {
 	return ApiApiBotOnlineRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -59,10 +58,10 @@ func (a *BotApiService) ApiBotOnline(ctx context.Context) ApiApiBotOnlineRequest
 //  @return User
 func (a *BotApiService) ApiBotOnlineExecute(r ApiApiBotOnlineRequest) (*User, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *User
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *User
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotApiService.ApiBotOnline")
@@ -133,12 +132,12 @@ func (a *BotApiService) ApiBotOnlineExecute(r ApiApiBotOnlineRequest) (*User, *h
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiApiStreamEventRequest struct {
-	ctx context.Context
+type BotApiStreamEventRequest struct {
+	ctx        context.Context
 	ApiService *BotApiService
 }
 
-func (r ApiApiStreamEventRequest) Execute() (interface{}, *http.Response, error) {
+func (r BotApiStreamEventRequest) Execute() (interface{}, *http.Response, error) {
 	return r.ApiService.ApiStreamEventExecute(r)
 }
 
@@ -154,27 +153,27 @@ ApiStreamEvent Stream incoming events
   - `challenge` A player sends you a challenge or you challenge someone
   - `challengeCanceled` A player cancels their challenge to you
   - `challengeDeclined` The opponent declines your challenge
- 
+
   When the stream opens, all current challenges and games are sent.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiApiStreamEventRequest
+ @return BotApiStreamEventRequest
 */
-func (a *BotApiService) ApiStreamEvent(ctx context.Context) ApiApiStreamEventRequest {
-	return ApiApiStreamEventRequest{
+func (a *BotApiService) ApiStreamEvent(ctx context.Context) BotApiStreamEventRequest {
+	return BotApiStreamEventRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
 //  @return interface{}
-func (a *BotApiService) ApiStreamEventExecute(r ApiApiStreamEventRequest) (interface{}, *http.Response, error) {
+func (a *BotApiService) ApiStreamEventExecute(r BotApiStreamEventRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotApiService.ApiStreamEvent")
@@ -243,7 +242,7 @@ func (a *BotApiService) ApiStreamEventExecute(r ApiApiStreamEventRequest) (inter
 }
 
 type ApiBotAccountUpgradeRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BotApiService
 }
 
@@ -272,7 +271,7 @@ the `title` field should be set to `BOT`.
 func (a *BotApiService) BotAccountUpgrade(ctx context.Context) ApiBotAccountUpgradeRequest {
 	return ApiBotAccountUpgradeRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -280,10 +279,10 @@ func (a *BotApiService) BotAccountUpgrade(ctx context.Context) ApiBotAccountUpgr
 //  @return Ok
 func (a *BotApiService) BotAccountUpgradeExecute(r ApiBotAccountUpgradeRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotApiService.BotAccountUpgrade")
@@ -361,9 +360,9 @@ func (a *BotApiService) BotAccountUpgradeExecute(r ApiBotAccountUpgradeRequest) 
 }
 
 type ApiBotGameAbortRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BotApiService
-	gameId interface{}
+	gameId     interface{}
 }
 
 func (r ApiBotGameAbortRequest) Execute() (*Ok, *http.Response, error) {
@@ -383,8 +382,8 @@ Abort a game being played with the Bot API.
 func (a *BotApiService) BotGameAbort(ctx context.Context, gameId interface{}) ApiBotGameAbortRequest {
 	return ApiBotGameAbortRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
+		ctx:        ctx,
+		gameId:     gameId,
 	}
 }
 
@@ -392,10 +391,10 @@ func (a *BotApiService) BotGameAbort(ctx context.Context, gameId interface{}) Ap
 //  @return Ok
 func (a *BotApiService) BotGameAbortExecute(r ApiBotGameAbortRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotApiService.BotGameAbort")
@@ -474,11 +473,11 @@ func (a *BotApiService) BotGameAbortExecute(r ApiBotGameAbortRequest) (*Ok, *htt
 }
 
 type ApiBotGameChatRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BotApiService
-	gameId interface{}
-	room *interface{}
-	text *interface{}
+	gameId     interface{}
+	room       *interface{}
+	text       *interface{}
 }
 
 func (r ApiBotGameChatRequest) Room(room interface{}) ApiBotGameChatRequest {
@@ -508,8 +507,8 @@ Post a message to the player or spectator chat, in a game being played with the 
 func (a *BotApiService) BotGameChat(ctx context.Context, gameId interface{}) ApiBotGameChatRequest {
 	return ApiBotGameChatRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
+		ctx:        ctx,
+		gameId:     gameId,
 	}
 }
 
@@ -517,10 +516,10 @@ func (a *BotApiService) BotGameChat(ctx context.Context, gameId interface{}) Api
 //  @return Ok
 func (a *BotApiService) BotGameChatExecute(r ApiBotGameChatRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotApiService.BotGameChat")
@@ -607,9 +606,9 @@ func (a *BotApiService) BotGameChatExecute(r ApiBotGameChatRequest) (*Ok, *http.
 }
 
 type ApiBotGameChatGetRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BotApiService
-	gameId interface{}
+	gameId     interface{}
 }
 
 func (r ApiBotGameChatGetRequest) Execute() (interface{}, *http.Response, error) {
@@ -629,8 +628,8 @@ Get the messages posted in the game chat
 func (a *BotApiService) BotGameChatGet(ctx context.Context, gameId interface{}) ApiBotGameChatGetRequest {
 	return ApiBotGameChatGetRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
+		ctx:        ctx,
+		gameId:     gameId,
 	}
 }
 
@@ -638,10 +637,10 @@ func (a *BotApiService) BotGameChatGet(ctx context.Context, gameId interface{}) 
 //  @return interface{}
 func (a *BotApiService) BotGameChatGetExecute(r ApiBotGameChatGetRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotApiService.BotGameChatGet")
@@ -711,10 +710,10 @@ func (a *BotApiService) BotGameChatGetExecute(r ApiBotGameChatGetRequest) (inter
 }
 
 type ApiBotGameMoveRequest struct {
-	ctx context.Context
-	ApiService *BotApiService
-	gameId interface{}
-	move interface{}
+	ctx          context.Context
+	ApiService   *BotApiService
+	gameId       interface{}
+	move         interface{}
 	offeringDraw *interface{}
 }
 
@@ -744,9 +743,9 @@ The move can also contain a draw offer/agreement.
 func (a *BotApiService) BotGameMove(ctx context.Context, gameId interface{}, move interface{}) ApiBotGameMoveRequest {
 	return ApiBotGameMoveRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
-		move: move,
+		ctx:        ctx,
+		gameId:     gameId,
+		move:       move,
 	}
 }
 
@@ -754,10 +753,10 @@ func (a *BotApiService) BotGameMove(ctx context.Context, gameId interface{}, mov
 //  @return Ok
 func (a *BotApiService) BotGameMoveExecute(r ApiBotGameMoveRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotApiService.BotGameMove")
@@ -840,9 +839,9 @@ func (a *BotApiService) BotGameMoveExecute(r ApiBotGameMoveRequest) (*Ok, *http.
 }
 
 type ApiBotGameResignRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BotApiService
-	gameId interface{}
+	gameId     interface{}
 }
 
 func (r ApiBotGameResignRequest) Execute() (*Ok, *http.Response, error) {
@@ -862,8 +861,8 @@ Resign a game being played with the Bot API.
 func (a *BotApiService) BotGameResign(ctx context.Context, gameId interface{}) ApiBotGameResignRequest {
 	return ApiBotGameResignRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
+		ctx:        ctx,
+		gameId:     gameId,
 	}
 }
 
@@ -871,10 +870,10 @@ func (a *BotApiService) BotGameResign(ctx context.Context, gameId interface{}) A
 //  @return Ok
 func (a *BotApiService) BotGameResignExecute(r ApiBotGameResignRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotApiService.BotGameResign")
@@ -953,9 +952,9 @@ func (a *BotApiService) BotGameResignExecute(r ApiBotGameResignRequest) (*Ok, *h
 }
 
 type ApiBotGameStreamRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BotApiService
-	gameId interface{}
+	gameId     interface{}
 }
 
 func (r ApiBotGameStreamRequest) Execute() (interface{}, *http.Response, error) {
@@ -976,7 +975,7 @@ Each line is a JSON object containing a `type` field. Possible values are:
 
   - `opponentGone` Whether the opponent has left the game, and how long before you can claim a win or draw.
 
- 
+
 The first line is always of type `gameFull`.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -986,8 +985,8 @@ The first line is always of type `gameFull`.
 func (a *BotApiService) BotGameStream(ctx context.Context, gameId interface{}) ApiBotGameStreamRequest {
 	return ApiBotGameStreamRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
+		ctx:        ctx,
+		gameId:     gameId,
 	}
 }
 
@@ -995,10 +994,10 @@ func (a *BotApiService) BotGameStream(ctx context.Context, gameId interface{}) A
 //  @return interface{}
 func (a *BotApiService) BotGameStreamExecute(r ApiBotGameStreamRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BotApiService.BotGameStream")

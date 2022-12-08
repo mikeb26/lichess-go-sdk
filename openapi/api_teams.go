@@ -1,7 +1,7 @@
 /*
 Lichess.org API reference
 
-# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses. 
+# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses.
 
 API version: 2.0.0
 Contact: contact@lichess.org
@@ -20,24 +20,23 @@ import (
 	"strings"
 )
 
-
 // TeamsApiService TeamsApi service
 type TeamsApiService service
 
-type ApiApiTeamArenaRequest struct {
-	ctx context.Context
+type TeamsApiTeamArenaRequest struct {
+	ctx        context.Context
 	ApiService *TeamsApiService
-	teamId interface{}
-	max *interface{}
+	teamId     interface{}
+	max        *interface{}
 }
 
 // How many tournaments to download.
-func (r ApiApiTeamArenaRequest) Max(max interface{}) ApiApiTeamArenaRequest {
+func (r TeamsApiTeamArenaRequest) Max(max interface{}) TeamsApiTeamArenaRequest {
 	r.max = &max
 	return r
 }
 
-func (r ApiApiTeamArenaRequest) Execute() (interface{}, *http.Response, error) {
+func (r TeamsApiTeamArenaRequest) Execute() (interface{}, *http.Response, error) {
 	return r.ApiService.ApiTeamArenaExecute(r)
 }
 
@@ -53,24 +52,24 @@ Tournaments are streamed as [ndjson](#section/Introduction/Streaming-with-ND-JSO
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param teamId ID of the team
- @return ApiApiTeamArenaRequest
+ @return TeamsApiTeamArenaRequest
 */
-func (a *TeamsApiService) ApiTeamArena(ctx context.Context, teamId interface{}) ApiApiTeamArenaRequest {
-	return ApiApiTeamArenaRequest{
+func (a *TeamsApiService) ApiTeamArena(ctx context.Context, teamId interface{}) TeamsApiTeamArenaRequest {
+	return TeamsApiTeamArenaRequest{
 		ApiService: a,
-		ctx: ctx,
-		teamId: teamId,
+		ctx:        ctx,
+		teamId:     teamId,
 	}
 }
 
 // Execute executes the request
 //  @return interface{}
-func (a *TeamsApiService) ApiTeamArenaExecute(r ApiApiTeamArenaRequest) (interface{}, *http.Response, error) {
+func (a *TeamsApiService) ApiTeamArenaExecute(r TeamsApiTeamArenaRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.ApiTeamArena")
@@ -142,20 +141,20 @@ func (a *TeamsApiService) ApiTeamArenaExecute(r ApiApiTeamArenaRequest) (interfa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiApiTeamSwissRequest struct {
-	ctx context.Context
+type TeamsApiTeamSwissRequest struct {
+	ctx        context.Context
 	ApiService *TeamsApiService
-	teamId interface{}
-	max *interface{}
+	teamId     interface{}
+	max        *interface{}
 }
 
 // How many tournaments to download.
-func (r ApiApiTeamSwissRequest) Max(max interface{}) ApiApiTeamSwissRequest {
+func (r TeamsApiTeamSwissRequest) Max(max interface{}) TeamsApiTeamSwissRequest {
 	r.max = &max
 	return r
 }
 
-func (r ApiApiTeamSwissRequest) Execute() (interface{}, *http.Response, error) {
+func (r TeamsApiTeamSwissRequest) Execute() (interface{}, *http.Response, error) {
 	return r.ApiService.ApiTeamSwissExecute(r)
 }
 
@@ -171,24 +170,24 @@ Tournaments are streamed as [ndjson](#section/Introduction/Streaming-with-ND-JSO
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param teamId
- @return ApiApiTeamSwissRequest
+ @return TeamsApiTeamSwissRequest
 */
-func (a *TeamsApiService) ApiTeamSwiss(ctx context.Context, teamId interface{}) ApiApiTeamSwissRequest {
-	return ApiApiTeamSwissRequest{
+func (a *TeamsApiService) ApiTeamSwiss(ctx context.Context, teamId interface{}) TeamsApiTeamSwissRequest {
+	return TeamsApiTeamSwissRequest{
 		ApiService: a,
-		ctx: ctx,
-		teamId: teamId,
+		ctx:        ctx,
+		teamId:     teamId,
 	}
 }
 
 // Execute executes the request
 //  @return interface{}
-func (a *TeamsApiService) ApiTeamSwissExecute(r ApiApiTeamSwissRequest) (interface{}, *http.Response, error) {
+func (a *TeamsApiService) ApiTeamSwissExecute(r TeamsApiTeamSwissRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.ApiTeamSwiss")
@@ -261,9 +260,9 @@ func (a *TeamsApiService) ApiTeamSwissExecute(r ApiApiTeamSwissRequest) (interfa
 }
 
 type ApiTeamAllRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TeamsApiService
-	page *interface{}
+	page       *interface{}
 }
 
 func (r ApiTeamAllRequest) Page(page interface{}) ApiTeamAllRequest {
@@ -287,7 +286,7 @@ Paginator of the most popular teams.
 func (a *TeamsApiService) TeamAll(ctx context.Context) ApiTeamAllRequest {
 	return ApiTeamAllRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -295,10 +294,10 @@ func (a *TeamsApiService) TeamAll(ctx context.Context) ApiTeamAllRequest {
 //  @return TeamAll200Response
 func (a *TeamsApiService) TeamAllExecute(r ApiTeamAllRequest) (*TeamAll200Response, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *TeamAll200Response
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *TeamAll200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.TeamAll")
@@ -370,11 +369,11 @@ func (a *TeamsApiService) TeamAllExecute(r ApiTeamAllRequest) (*TeamAll200Respon
 }
 
 type ApiTeamIdJoinRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TeamsApiService
-	teamId interface{}
-	message *interface{}
-	password *interface{}
+	teamId     interface{}
+	message    *interface{}
+	password   *interface{}
 }
 
 // Optional request message, if the team requires one.
@@ -411,8 +410,8 @@ Similarly, if the team join policy requires a confirmation but the
 func (a *TeamsApiService) TeamIdJoin(ctx context.Context, teamId interface{}) ApiTeamIdJoinRequest {
 	return ApiTeamIdJoinRequest{
 		ApiService: a,
-		ctx: ctx,
-		teamId: teamId,
+		ctx:        ctx,
+		teamId:     teamId,
 	}
 }
 
@@ -420,10 +419,10 @@ func (a *TeamsApiService) TeamIdJoin(ctx context.Context, teamId interface{}) Ap
 //  @return Ok
 func (a *TeamsApiService) TeamIdJoinExecute(r ApiTeamIdJoinRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.TeamIdJoin")
@@ -499,10 +498,10 @@ func (a *TeamsApiService) TeamIdJoinExecute(r ApiTeamIdJoinRequest) (*Ok, *http.
 }
 
 type ApiTeamIdKickUserIdRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TeamsApiService
-	teamId interface{}
-	userId interface{}
+	teamId     interface{}
+	userId     interface{}
 }
 
 func (r ApiTeamIdKickUserIdRequest) Execute() (*Ok, *http.Response, error) {
@@ -524,9 +523,9 @@ Kick a member out of one of your teams.
 func (a *TeamsApiService) TeamIdKickUserId(ctx context.Context, teamId interface{}, userId interface{}) ApiTeamIdKickUserIdRequest {
 	return ApiTeamIdKickUserIdRequest{
 		ApiService: a,
-		ctx: ctx,
-		teamId: teamId,
-		userId: userId,
+		ctx:        ctx,
+		teamId:     teamId,
+		userId:     userId,
 	}
 }
 
@@ -534,10 +533,10 @@ func (a *TeamsApiService) TeamIdKickUserId(ctx context.Context, teamId interface
 //  @return Ok
 func (a *TeamsApiService) TeamIdKickUserIdExecute(r ApiTeamIdKickUserIdRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.TeamIdKickUserId")
@@ -608,10 +607,10 @@ func (a *TeamsApiService) TeamIdKickUserIdExecute(r ApiTeamIdKickUserIdRequest) 
 }
 
 type ApiTeamIdPmAllRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TeamsApiService
-	teamId interface{}
-	message *interface{}
+	teamId     interface{}
+	message    *interface{}
 }
 
 // The message to send to all your team members.
@@ -638,8 +637,8 @@ You must own the team.
 func (a *TeamsApiService) TeamIdPmAll(ctx context.Context, teamId interface{}) ApiTeamIdPmAllRequest {
 	return ApiTeamIdPmAllRequest{
 		ApiService: a,
-		ctx: ctx,
-		teamId: teamId,
+		ctx:        ctx,
+		teamId:     teamId,
 	}
 }
 
@@ -647,10 +646,10 @@ func (a *TeamsApiService) TeamIdPmAll(ctx context.Context, teamId interface{}) A
 //  @return Ok
 func (a *TeamsApiService) TeamIdPmAllExecute(r ApiTeamIdPmAllRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.TeamIdPmAll")
@@ -732,9 +731,9 @@ func (a *TeamsApiService) TeamIdPmAllExecute(r ApiTeamIdPmAllRequest) (*Ok, *htt
 }
 
 type ApiTeamIdQuitRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TeamsApiService
-	teamId interface{}
+	teamId     interface{}
 }
 
 func (r ApiTeamIdQuitRequest) Execute() (*Ok, *http.Response, error) {
@@ -755,8 +754,8 @@ Leave a team.
 func (a *TeamsApiService) TeamIdQuit(ctx context.Context, teamId interface{}) ApiTeamIdQuitRequest {
 	return ApiTeamIdQuitRequest{
 		ApiService: a,
-		ctx: ctx,
-		teamId: teamId,
+		ctx:        ctx,
+		teamId:     teamId,
 	}
 }
 
@@ -764,10 +763,10 @@ func (a *TeamsApiService) TeamIdQuit(ctx context.Context, teamId interface{}) Ap
 //  @return Ok
 func (a *TeamsApiService) TeamIdQuitExecute(r ApiTeamIdQuitRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.TeamIdQuit")
@@ -836,13 +835,13 @@ func (a *TeamsApiService) TeamIdQuitExecute(r ApiTeamIdQuitRequest) (*Ok, *http.
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiTeamIdUsersRequest struct {
-	ctx context.Context
+type TeamsApiTeamIdUsersRequest struct {
+	ctx        context.Context
 	ApiService *TeamsApiService
-	teamId interface{}
+	teamId     interface{}
 }
 
-func (r ApiTeamIdUsersRequest) Execute() (interface{}, *http.Response, error) {
+func (r TeamsApiTeamIdUsersRequest) Execute() (interface{}, *http.Response, error) {
 	return r.ApiService.TeamIdUsersExecute(r)
 }
 
@@ -857,24 +856,24 @@ Members are streamed as [ndjson](#section/Introduction/Streaming-with-ND-JSON).
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param teamId
- @return ApiTeamIdUsersRequest
+ @return TeamsApiTeamIdUsersRequest
 */
-func (a *TeamsApiService) TeamIdUsers(ctx context.Context, teamId interface{}) ApiTeamIdUsersRequest {
-	return ApiTeamIdUsersRequest{
+func (a *TeamsApiService) TeamIdUsers(ctx context.Context, teamId interface{}) TeamsApiTeamIdUsersRequest {
+	return TeamsApiTeamIdUsersRequest{
 		ApiService: a,
-		ctx: ctx,
-		teamId: teamId,
+		ctx:        ctx,
+		teamId:     teamId,
 	}
 }
 
 // Execute executes the request
 //  @return interface{}
-func (a *TeamsApiService) TeamIdUsersExecute(r ApiTeamIdUsersRequest) (interface{}, *http.Response, error) {
+func (a *TeamsApiService) TeamIdUsersExecute(r TeamsApiTeamIdUsersRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.TeamIdUsers")
@@ -944,9 +943,9 @@ func (a *TeamsApiService) TeamIdUsersExecute(r ApiTeamIdUsersRequest) (interface
 }
 
 type ApiTeamOfUsernameRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TeamsApiService
-	username interface{}
+	username   interface{}
 }
 
 func (r ApiTeamOfUsernameRequest) Execute() (interface{}, *http.Response, error) {
@@ -966,8 +965,8 @@ All the teams a player is a member of.
 func (a *TeamsApiService) TeamOfUsername(ctx context.Context, username interface{}) ApiTeamOfUsernameRequest {
 	return ApiTeamOfUsernameRequest{
 		ApiService: a,
-		ctx: ctx,
-		username: username,
+		ctx:        ctx,
+		username:   username,
 	}
 }
 
@@ -975,10 +974,10 @@ func (a *TeamsApiService) TeamOfUsername(ctx context.Context, username interface
 //  @return interface{}
 func (a *TeamsApiService) TeamOfUsernameExecute(r ApiTeamOfUsernameRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.TeamOfUsername")
@@ -1048,10 +1047,10 @@ func (a *TeamsApiService) TeamOfUsernameExecute(r ApiTeamOfUsernameRequest) (int
 }
 
 type ApiTeamRequestAcceptRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TeamsApiService
-	teamId interface{}
-	userId interface{}
+	teamId     interface{}
+	userId     interface{}
 }
 
 func (r ApiTeamRequestAcceptRequest) Execute() (*Ok, *http.Response, error) {
@@ -1071,9 +1070,9 @@ Accept someone's request to join your team
 func (a *TeamsApiService) TeamRequestAccept(ctx context.Context, teamId interface{}, userId interface{}) ApiTeamRequestAcceptRequest {
 	return ApiTeamRequestAcceptRequest{
 		ApiService: a,
-		ctx: ctx,
-		teamId: teamId,
-		userId: userId,
+		ctx:        ctx,
+		teamId:     teamId,
+		userId:     userId,
 	}
 }
 
@@ -1081,10 +1080,10 @@ func (a *TeamsApiService) TeamRequestAccept(ctx context.Context, teamId interfac
 //  @return Ok
 func (a *TeamsApiService) TeamRequestAcceptExecute(r ApiTeamRequestAcceptRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.TeamRequestAccept")
@@ -1155,10 +1154,10 @@ func (a *TeamsApiService) TeamRequestAcceptExecute(r ApiTeamRequestAcceptRequest
 }
 
 type ApiTeamRequestDeclineRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TeamsApiService
-	teamId interface{}
-	userId interface{}
+	teamId     interface{}
+	userId     interface{}
 }
 
 func (r ApiTeamRequestDeclineRequest) Execute() (*Ok, *http.Response, error) {
@@ -1178,9 +1177,9 @@ Decline someone's request to join your team
 func (a *TeamsApiService) TeamRequestDecline(ctx context.Context, teamId interface{}, userId interface{}) ApiTeamRequestDeclineRequest {
 	return ApiTeamRequestDeclineRequest{
 		ApiService: a,
-		ctx: ctx,
-		teamId: teamId,
-		userId: userId,
+		ctx:        ctx,
+		teamId:     teamId,
+		userId:     userId,
 	}
 }
 
@@ -1188,10 +1187,10 @@ func (a *TeamsApiService) TeamRequestDecline(ctx context.Context, teamId interfa
 //  @return Ok
 func (a *TeamsApiService) TeamRequestDeclineExecute(r ApiTeamRequestDeclineRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.TeamRequestDecline")
@@ -1262,9 +1261,9 @@ func (a *TeamsApiService) TeamRequestDeclineExecute(r ApiTeamRequestDeclineReque
 }
 
 type ApiTeamRequestsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TeamsApiService
-	teamId interface{}
+	teamId     interface{}
 }
 
 func (r ApiTeamRequestsRequest) Execute() ([]TeamRequestWithUser, *http.Response, error) {
@@ -1283,8 +1282,8 @@ Get pending join requests of your team
 func (a *TeamsApiService) TeamRequests(ctx context.Context, teamId interface{}) ApiTeamRequestsRequest {
 	return ApiTeamRequestsRequest{
 		ApiService: a,
-		ctx: ctx,
-		teamId: teamId,
+		ctx:        ctx,
+		teamId:     teamId,
 	}
 }
 
@@ -1292,10 +1291,10 @@ func (a *TeamsApiService) TeamRequests(ctx context.Context, teamId interface{}) 
 //  @return []TeamRequestWithUser
 func (a *TeamsApiService) TeamRequestsExecute(r ApiTeamRequestsRequest) ([]TeamRequestWithUser, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []TeamRequestWithUser
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []TeamRequestWithUser
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.TeamRequests")
@@ -1365,10 +1364,10 @@ func (a *TeamsApiService) TeamRequestsExecute(r ApiTeamRequestsRequest) ([]TeamR
 }
 
 type ApiTeamSearchRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TeamsApiService
-	text *interface{}
-	page *interface{}
+	text       *interface{}
+	page       *interface{}
 }
 
 func (r ApiTeamSearchRequest) Text(text interface{}) ApiTeamSearchRequest {
@@ -1397,7 +1396,7 @@ Paginator of team search results for a keyword.
 func (a *TeamsApiService) TeamSearch(ctx context.Context) ApiTeamSearchRequest {
 	return ApiTeamSearchRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -1405,10 +1404,10 @@ func (a *TeamsApiService) TeamSearch(ctx context.Context) ApiTeamSearchRequest {
 //  @return interface{}
 func (a *TeamsApiService) TeamSearchExecute(r ApiTeamSearchRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.TeamSearch")
@@ -1483,9 +1482,9 @@ func (a *TeamsApiService) TeamSearchExecute(r ApiTeamSearchRequest) (interface{}
 }
 
 type ApiTeamShowRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *TeamsApiService
-	teamId interface{}
+	teamId     interface{}
 }
 
 func (r ApiTeamShowRequest) Execute() (*Team, *http.Response, error) {
@@ -1504,8 +1503,8 @@ Infos about a team
 func (a *TeamsApiService) TeamShow(ctx context.Context, teamId interface{}) ApiTeamShowRequest {
 	return ApiTeamShowRequest{
 		ApiService: a,
-		ctx: ctx,
-		teamId: teamId,
+		ctx:        ctx,
+		teamId:     teamId,
 	}
 }
 
@@ -1513,10 +1512,10 @@ func (a *TeamsApiService) TeamShow(ctx context.Context, teamId interface{}) ApiT
 //  @return Team
 func (a *TeamsApiService) TeamShowExecute(r ApiTeamShowRequest) (*Team, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Team
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Team
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsApiService.TeamShow")

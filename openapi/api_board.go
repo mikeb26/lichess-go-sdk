@@ -1,7 +1,7 @@
 /*
 Lichess.org API reference
 
-# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses. 
+# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses.
 
 API version: 2.0.0
 Contact: contact@lichess.org
@@ -20,19 +20,18 @@ import (
 	"strings"
 )
 
-
 // BoardApiService BoardApi service
 type BoardApiService service
 
 type ApiApiBoardSeekRequest struct {
-	ctx context.Context
-	ApiService *BoardApiService
-	rated *interface{}
-	time *interface{}
-	increment *interface{}
-	days *interface{}
-	variant *VariantKey
-	color *interface{}
+	ctx         context.Context
+	ApiService  *BoardApiService
+	rated       *interface{}
+	time        *interface{}
+	increment   *interface{}
+	days        *interface{}
+	variant     *VariantKey
+	color       *interface{}
 	ratingRange *interface{}
 }
 
@@ -71,7 +70,7 @@ func (r ApiApiBoardSeekRequest) Color(color interface{}) ApiApiBoardSeekRequest 
 	return r
 }
 
-// The rating range of potential opponents. Better left empty. Example: 1500-1800 
+// The rating range of potential opponents. Better left empty. Example: 1500-1800
 func (r ApiApiBoardSeekRequest) RatingRange(ratingRange interface{}) ApiApiBoardSeekRequest {
 	r.ratingRange = &ratingRange
 	return r
@@ -110,16 +109,16 @@ ApiBoardSeek Create a seek
 func (a *BoardApiService) ApiBoardSeek(ctx context.Context) ApiApiBoardSeekRequest {
 	return ApiApiBoardSeekRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
 func (a *BoardApiService) ApiBoardSeekExecute(r ApiApiBoardSeekRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BoardApiService.ApiBoardSeek")
@@ -208,12 +207,12 @@ func (a *BoardApiService) ApiBoardSeekExecute(r ApiApiBoardSeekRequest) (*http.R
 	return localVarHTTPResponse, nil
 }
 
-type ApiApiStreamEventRequest struct {
-	ctx context.Context
+type BoardApiStreamEventRequest struct {
+	ctx        context.Context
 	ApiService *BoardApiService
 }
 
-func (r ApiApiStreamEventRequest) Execute() (interface{}, *http.Response, error) {
+func (r BoardApiStreamEventRequest) Execute() (interface{}, *http.Response, error) {
 	return r.ApiService.ApiStreamEventExecute(r)
 }
 
@@ -229,27 +228,27 @@ ApiStreamEvent Stream incoming events
   - `challenge` A player sends you a challenge or you challenge someone
   - `challengeCanceled` A player cancels their challenge to you
   - `challengeDeclined` The opponent declines your challenge
- 
+
   When the stream opens, all current challenges and games are sent.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiApiStreamEventRequest
+ @return BoardApiStreamEventRequest
 */
-func (a *BoardApiService) ApiStreamEvent(ctx context.Context) ApiApiStreamEventRequest {
-	return ApiApiStreamEventRequest{
+func (a *BoardApiService) ApiStreamEvent(ctx context.Context) BoardApiStreamEventRequest {
+	return BoardApiStreamEventRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
 //  @return interface{}
-func (a *BoardApiService) ApiStreamEventExecute(r ApiApiStreamEventRequest) (interface{}, *http.Response, error) {
+func (a *BoardApiService) ApiStreamEventExecute(r BoardApiStreamEventRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BoardApiService.ApiStreamEvent")
@@ -318,9 +317,9 @@ func (a *BoardApiService) ApiStreamEventExecute(r ApiApiStreamEventRequest) (int
 }
 
 type ApiBoardGameAbortRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BoardApiService
-	gameId interface{}
+	gameId     interface{}
 }
 
 func (r ApiBoardGameAbortRequest) Execute() (*Ok, *http.Response, error) {
@@ -340,8 +339,8 @@ Abort a game being played with the Board API.
 func (a *BoardApiService) BoardGameAbort(ctx context.Context, gameId interface{}) ApiBoardGameAbortRequest {
 	return ApiBoardGameAbortRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
+		ctx:        ctx,
+		gameId:     gameId,
 	}
 }
 
@@ -349,10 +348,10 @@ func (a *BoardApiService) BoardGameAbort(ctx context.Context, gameId interface{}
 //  @return Ok
 func (a *BoardApiService) BoardGameAbortExecute(r ApiBoardGameAbortRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BoardApiService.BoardGameAbort")
@@ -431,9 +430,9 @@ func (a *BoardApiService) BoardGameAbortExecute(r ApiBoardGameAbortRequest) (*Ok
 }
 
 type ApiBoardGameBerserkRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BoardApiService
-	gameId interface{}
+	gameId     interface{}
 }
 
 func (r ApiBoardGameBerserkRequest) Execute() (*Ok, *http.Response, error) {
@@ -454,8 +453,8 @@ Only available in arena tournaments that allow berserk, and before each player h
 func (a *BoardApiService) BoardGameBerserk(ctx context.Context, gameId interface{}) ApiBoardGameBerserkRequest {
 	return ApiBoardGameBerserkRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
+		ctx:        ctx,
+		gameId:     gameId,
 	}
 }
 
@@ -463,10 +462,10 @@ func (a *BoardApiService) BoardGameBerserk(ctx context.Context, gameId interface
 //  @return Ok
 func (a *BoardApiService) BoardGameBerserkExecute(r ApiBoardGameBerserkRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BoardApiService.BoardGameBerserk")
@@ -545,9 +544,9 @@ func (a *BoardApiService) BoardGameBerserkExecute(r ApiBoardGameBerserkRequest) 
 }
 
 type ApiBoardGameChatGetRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BoardApiService
-	gameId interface{}
+	gameId     interface{}
 }
 
 func (r ApiBoardGameChatGetRequest) Execute() (interface{}, *http.Response, error) {
@@ -567,8 +566,8 @@ Get the messages posted in the game chat
 func (a *BoardApiService) BoardGameChatGet(ctx context.Context, gameId interface{}) ApiBoardGameChatGetRequest {
 	return ApiBoardGameChatGetRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
+		ctx:        ctx,
+		gameId:     gameId,
 	}
 }
 
@@ -576,10 +575,10 @@ func (a *BoardApiService) BoardGameChatGet(ctx context.Context, gameId interface
 //  @return interface{}
 func (a *BoardApiService) BoardGameChatGetExecute(r ApiBoardGameChatGetRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BoardApiService.BoardGameChatGet")
@@ -649,11 +648,11 @@ func (a *BoardApiService) BoardGameChatGetExecute(r ApiBoardGameChatGetRequest) 
 }
 
 type ApiBoardGameChatPostRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BoardApiService
-	gameId interface{}
-	room *interface{}
-	text *interface{}
+	gameId     interface{}
+	room       *interface{}
+	text       *interface{}
 }
 
 func (r ApiBoardGameChatPostRequest) Room(room interface{}) ApiBoardGameChatPostRequest {
@@ -683,8 +682,8 @@ Post a message to the player or spectator chat, in a game being played with the 
 func (a *BoardApiService) BoardGameChatPost(ctx context.Context, gameId interface{}) ApiBoardGameChatPostRequest {
 	return ApiBoardGameChatPostRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
+		ctx:        ctx,
+		gameId:     gameId,
 	}
 }
 
@@ -692,10 +691,10 @@ func (a *BoardApiService) BoardGameChatPost(ctx context.Context, gameId interfac
 //  @return Ok
 func (a *BoardApiService) BoardGameChatPostExecute(r ApiBoardGameChatPostRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BoardApiService.BoardGameChatPost")
@@ -782,9 +781,9 @@ func (a *BoardApiService) BoardGameChatPostExecute(r ApiBoardGameChatPostRequest
 }
 
 type ApiBoardGameClaimVictoryRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BoardApiService
-	gameId interface{}
+	gameId     interface{}
 }
 
 func (r ApiBoardGameClaimVictoryRequest) Execute() (*Ok, *http.Response, error) {
@@ -804,8 +803,8 @@ Claim victory when the opponent has left the game for a while.
 func (a *BoardApiService) BoardGameClaimVictory(ctx context.Context, gameId interface{}) ApiBoardGameClaimVictoryRequest {
 	return ApiBoardGameClaimVictoryRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
+		ctx:        ctx,
+		gameId:     gameId,
 	}
 }
 
@@ -813,10 +812,10 @@ func (a *BoardApiService) BoardGameClaimVictory(ctx context.Context, gameId inte
 //  @return Ok
 func (a *BoardApiService) BoardGameClaimVictoryExecute(r ApiBoardGameClaimVictoryRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BoardApiService.BoardGameClaimVictory")
@@ -895,10 +894,10 @@ func (a *BoardApiService) BoardGameClaimVictoryExecute(r ApiBoardGameClaimVictor
 }
 
 type ApiBoardGameDrawRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BoardApiService
-	gameId interface{}
-	accept interface{}
+	gameId     interface{}
+	accept     interface{}
 }
 
 func (r ApiBoardGameDrawRequest) Execute() (*Ok, *http.Response, error) {
@@ -921,9 +920,9 @@ Create/accept/decline draw offers.
 func (a *BoardApiService) BoardGameDraw(ctx context.Context, gameId interface{}, accept interface{}) ApiBoardGameDrawRequest {
 	return ApiBoardGameDrawRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
-		accept: accept,
+		ctx:        ctx,
+		gameId:     gameId,
+		accept:     accept,
 	}
 }
 
@@ -931,10 +930,10 @@ func (a *BoardApiService) BoardGameDraw(ctx context.Context, gameId interface{},
 //  @return Ok
 func (a *BoardApiService) BoardGameDrawExecute(r ApiBoardGameDrawRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BoardApiService.BoardGameDraw")
@@ -1014,10 +1013,10 @@ func (a *BoardApiService) BoardGameDrawExecute(r ApiBoardGameDrawRequest) (*Ok, 
 }
 
 type ApiBoardGameMoveRequest struct {
-	ctx context.Context
-	ApiService *BoardApiService
-	gameId interface{}
-	move interface{}
+	ctx          context.Context
+	ApiService   *BoardApiService
+	gameId       interface{}
+	move         interface{}
 	offeringDraw *interface{}
 }
 
@@ -1047,9 +1046,9 @@ The move can also contain a draw offer/agreement.
 func (a *BoardApiService) BoardGameMove(ctx context.Context, gameId interface{}, move interface{}) ApiBoardGameMoveRequest {
 	return ApiBoardGameMoveRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
-		move: move,
+		ctx:        ctx,
+		gameId:     gameId,
+		move:       move,
 	}
 }
 
@@ -1057,10 +1056,10 @@ func (a *BoardApiService) BoardGameMove(ctx context.Context, gameId interface{},
 //  @return Ok
 func (a *BoardApiService) BoardGameMoveExecute(r ApiBoardGameMoveRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BoardApiService.BoardGameMove")
@@ -1143,9 +1142,9 @@ func (a *BoardApiService) BoardGameMoveExecute(r ApiBoardGameMoveRequest) (*Ok, 
 }
 
 type ApiBoardGameResignRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BoardApiService
-	gameId interface{}
+	gameId     interface{}
 }
 
 func (r ApiBoardGameResignRequest) Execute() (*Ok, *http.Response, error) {
@@ -1165,8 +1164,8 @@ Resign a game being played with the Board API.
 func (a *BoardApiService) BoardGameResign(ctx context.Context, gameId interface{}) ApiBoardGameResignRequest {
 	return ApiBoardGameResignRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
+		ctx:        ctx,
+		gameId:     gameId,
 	}
 }
 
@@ -1174,10 +1173,10 @@ func (a *BoardApiService) BoardGameResign(ctx context.Context, gameId interface{
 //  @return Ok
 func (a *BoardApiService) BoardGameResignExecute(r ApiBoardGameResignRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BoardApiService.BoardGameResign")
@@ -1256,9 +1255,9 @@ func (a *BoardApiService) BoardGameResignExecute(r ApiBoardGameResignRequest) (*
 }
 
 type ApiBoardGameStreamRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BoardApiService
-	gameId interface{}
+	gameId     interface{}
 }
 
 func (r ApiBoardGameStreamRequest) Execute() (interface{}, *http.Response, error) {
@@ -1279,10 +1278,10 @@ Each line is a JSON object containing a `type` field. Possible values are:
 
   - `opponentGone` Whether the opponent has left the game, and how long before you can claim a win or draw.
 
- 
+
 The first line is always of type `gameFull`.
 
- 
+
 The server closes the stream when the game ends, or if the game has already ended.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1292,8 +1291,8 @@ The server closes the stream when the game ends, or if the game has already ende
 func (a *BoardApiService) BoardGameStream(ctx context.Context, gameId interface{}) ApiBoardGameStreamRequest {
 	return ApiBoardGameStreamRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
+		ctx:        ctx,
+		gameId:     gameId,
 	}
 }
 
@@ -1301,10 +1300,10 @@ func (a *BoardApiService) BoardGameStream(ctx context.Context, gameId interface{
 //  @return interface{}
 func (a *BoardApiService) BoardGameStreamExecute(r ApiBoardGameStreamRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BoardApiService.BoardGameStream")
@@ -1383,10 +1382,10 @@ func (a *BoardApiService) BoardGameStreamExecute(r ApiBoardGameStreamRequest) (i
 }
 
 type ApiBoardGameTakebackRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *BoardApiService
-	gameId interface{}
-	accept interface{}
+	gameId     interface{}
+	accept     interface{}
 }
 
 func (r ApiBoardGameTakebackRequest) Execute() (*Ok, *http.Response, error) {
@@ -1409,9 +1408,9 @@ Create/accept/decline takebacks.
 func (a *BoardApiService) BoardGameTakeback(ctx context.Context, gameId interface{}, accept interface{}) ApiBoardGameTakebackRequest {
 	return ApiBoardGameTakebackRequest{
 		ApiService: a,
-		ctx: ctx,
-		gameId: gameId,
-		accept: accept,
+		ctx:        ctx,
+		gameId:     gameId,
+		accept:     accept,
 	}
 }
 
@@ -1419,10 +1418,10 @@ func (a *BoardApiService) BoardGameTakeback(ctx context.Context, gameId interfac
 //  @return Ok
 func (a *BoardApiService) BoardGameTakebackExecute(r ApiBoardGameTakebackRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "BoardApiService.BoardGameTakeback")

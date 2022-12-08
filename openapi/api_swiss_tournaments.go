@@ -1,7 +1,7 @@
 /*
 Lichess.org API reference
 
-# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses. 
+# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses.
 
 API version: 2.0.0
 Contact: contact@lichess.org
@@ -20,15 +20,14 @@ import (
 	"strings"
 )
 
-
 // SwissTournamentsApiService SwissTournamentsApi service
 type SwissTournamentsApiService service
 
 type ApiApiSwissJoinRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *SwissTournamentsApiService
-	id interface{}
-	password *interface{}
+	id         interface{}
+	password   *interface{}
 }
 
 // The tournament password, if one is required
@@ -54,8 +53,8 @@ Join a Swiss tournament, possibly with a password.
 func (a *SwissTournamentsApiService) ApiSwissJoin(ctx context.Context, id interface{}) ApiApiSwissJoinRequest {
 	return ApiApiSwissJoinRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -63,10 +62,10 @@ func (a *SwissTournamentsApiService) ApiSwissJoin(ctx context.Context, id interf
 //  @return Ok
 func (a *SwissTournamentsApiService) ApiSwissJoinExecute(r ApiApiSwissJoinRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwissTournamentsApiService.ApiSwissJoin")
@@ -148,26 +147,26 @@ func (a *SwissTournamentsApiService) ApiSwissJoinExecute(r ApiApiSwissJoinReques
 }
 
 type ApiApiSwissNewRequest struct {
-	ctx context.Context
-	ApiService *SwissTournamentsApiService
-	teamId interface{}
-	clockLimit *interface{}
-	clockIncrement *interface{}
-	nbRounds *interface{}
-	name *interface{}
-	startsAt *interface{}
-	roundInterval *interface{}
-	variant *VariantKey
-	description *interface{}
-	rated *interface{}
-	password *interface{}
-	forbiddenPairings *interface{}
-	manualPairings *interface{}
-	chatFor *interface{}
+	ctx                       context.Context
+	ApiService                *SwissTournamentsApiService
+	teamId                    interface{}
+	clockLimit                *interface{}
+	clockIncrement            *interface{}
+	nbRounds                  *interface{}
+	name                      *interface{}
+	startsAt                  *interface{}
+	roundInterval             *interface{}
+	variant                   *VariantKey
+	description               *interface{}
+	rated                     *interface{}
+	password                  *interface{}
+	forbiddenPairings         *interface{}
+	manualPairings            *interface{}
+	chatFor                   *interface{}
 	conditionsMinRatingRating *interface{}
 	conditionsMaxRatingRating *interface{}
-	conditionsNbRatedGameNb *interface{}
-	conditionsAllowList *interface{}
+	conditionsNbRatedGameNb   *interface{}
+	conditionsAllowList       *interface{}
 }
 
 // Clock initial time in seconds
@@ -200,7 +199,7 @@ func (r ApiApiSwissNewRequest) StartsAt(startsAt interface{}) ApiApiSwissNewRequ
 	return r
 }
 
-// How long to wait between each round, in seconds.  Set to 99999999 to manually schedule each round from the tournament UI.  If empty or -1, a sensible value is picked automatically. 
+// How long to wait between each round, in seconds.  Set to 99999999 to manually schedule each round from the tournament UI.  If empty or -1, a sensible value is picked automatically.
 func (r ApiApiSwissNewRequest) RoundInterval(roundInterval interface{}) ApiApiSwissNewRequest {
 	r.roundInterval = &roundInterval
 	return r
@@ -229,19 +228,19 @@ func (r ApiApiSwissNewRequest) Password(password interface{}) ApiApiSwissNewRequ
 	return r
 }
 
-// Usernames of players that must not play together.  Two usernames per line, separated by a space. 
+// Usernames of players that must not play together.  Two usernames per line, separated by a space.
 func (r ApiApiSwissNewRequest) ForbiddenPairings(forbiddenPairings interface{}) ApiApiSwissNewRequest {
 	r.forbiddenPairings = &forbiddenPairings
 	return r
 }
 
-// Manual pairings for the next round.  Two usernames per line, separated by a space. Present players without a valid pairing will be given a bye, which is worth 1 point. Forfeited players will get 0 points. 
+// Manual pairings for the next round.  Two usernames per line, separated by a space. Present players without a valid pairing will be given a bye, which is worth 1 point. Forfeited players will get 0 points.
 func (r ApiApiSwissNewRequest) ManualPairings(manualPairings interface{}) ApiApiSwissNewRequest {
 	r.manualPairings = &manualPairings
 	return r
 }
 
-// Who can read and write in the chat. - 0  &#x3D; No-one - 10 &#x3D; Only team leaders - 20 &#x3D; Only team members - 30 &#x3D; All Lichess players 
+// Who can read and write in the chat. - 0  &#x3D; No-one - 10 &#x3D; Only team leaders - 20 &#x3D; Only team members - 30 &#x3D; All Lichess players
 func (r ApiApiSwissNewRequest) ChatFor(chatFor interface{}) ApiApiSwissNewRequest {
 	r.chatFor = &chatFor
 	return r
@@ -265,7 +264,7 @@ func (r ApiApiSwissNewRequest) ConditionsNbRatedGameNb(conditionsNbRatedGameNb i
 	return r
 }
 
-// Predefined list of usernames that are allowed to join, separated by commas. If this list is non-empty, then usernames absent from this list will be forbidden to join. Adding &#x60;%titled&#x60; to the list additionally allows any titled player to join. Example: &#x60;thibault,german11,%titled&#x60; 
+// Predefined list of usernames that are allowed to join, separated by commas. If this list is non-empty, then usernames absent from this list will be forbidden to join. Adding &#x60;%titled&#x60; to the list additionally allows any titled player to join. Example: &#x60;thibault,german11,%titled&#x60;
 func (r ApiApiSwissNewRequest) ConditionsAllowList(conditionsAllowList interface{}) ApiApiSwissNewRequest {
 	r.conditionsAllowList = &conditionsAllowList
 	return r
@@ -296,8 +295,8 @@ Additional restrictions:
 func (a *SwissTournamentsApiService) ApiSwissNew(ctx context.Context, teamId interface{}) ApiApiSwissNewRequest {
 	return ApiApiSwissNewRequest{
 		ApiService: a,
-		ctx: ctx,
-		teamId: teamId,
+		ctx:        ctx,
+		teamId:     teamId,
 	}
 }
 
@@ -305,10 +304,10 @@ func (a *SwissTournamentsApiService) ApiSwissNew(ctx context.Context, teamId int
 //  @return interface{}
 func (a *SwissTournamentsApiService) ApiSwissNewExecute(r ApiApiSwissNewRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwissTournamentsApiService.ApiSwissNew")
@@ -328,20 +327,8 @@ func (a *SwissTournamentsApiService) ApiSwissNewExecute(r ApiApiSwissNewRequest)
 	if r.clockIncrement == nil {
 		return localVarReturnValue, nil, reportError("clockIncrement is required and must be specified")
 	}
-	if *r.clockIncrement < 0 {
-		return localVarReturnValue, nil, reportError("clockIncrement must be greater than 0")
-	}
-	if *r.clockIncrement > 120 {
-		return localVarReturnValue, nil, reportError("clockIncrement must be less than 120")
-	}
 	if r.nbRounds == nil {
 		return localVarReturnValue, nil, reportError("nbRounds is required and must be specified")
-	}
-	if *r.nbRounds < 3 {
-		return localVarReturnValue, nil, reportError("nbRounds must be greater than 3")
-	}
-	if *r.nbRounds > 100 {
-		return localVarReturnValue, nil, reportError("nbRounds must be less than 100")
 	}
 
 	// to determine the Content-Type header
@@ -453,9 +440,9 @@ func (a *SwissTournamentsApiService) ApiSwissNewExecute(r ApiApiSwissNewRequest)
 }
 
 type ApiApiSwissTerminateRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *SwissTournamentsApiService
-	id interface{}
+	id         interface{}
 }
 
 func (r ApiApiSwissTerminateRequest) Execute() (*Ok, *http.Response, error) {
@@ -475,8 +462,8 @@ Terminate a Swiss tournament
 func (a *SwissTournamentsApiService) ApiSwissTerminate(ctx context.Context, id interface{}) ApiApiSwissTerminateRequest {
 	return ApiApiSwissTerminateRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -484,10 +471,10 @@ func (a *SwissTournamentsApiService) ApiSwissTerminate(ctx context.Context, id i
 //  @return Ok
 func (a *SwissTournamentsApiService) ApiSwissTerminateExecute(r ApiApiSwissTerminateRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwissTournamentsApiService.ApiSwissTerminate")
@@ -566,26 +553,26 @@ func (a *SwissTournamentsApiService) ApiSwissTerminateExecute(r ApiApiSwissTermi
 }
 
 type ApiApiSwissUpdateRequest struct {
-	ctx context.Context
-	ApiService *SwissTournamentsApiService
-	id interface{}
-	clockLimit *interface{}
-	clockIncrement *interface{}
-	nbRounds *interface{}
-	name *interface{}
-	startsAt *interface{}
-	roundInterval *interface{}
-	variant *VariantKey
-	description *interface{}
-	rated *interface{}
-	password *interface{}
-	forbiddenPairings *interface{}
-	manualPairings *interface{}
-	chatFor *interface{}
+	ctx                       context.Context
+	ApiService                *SwissTournamentsApiService
+	id                        interface{}
+	clockLimit                *interface{}
+	clockIncrement            *interface{}
+	nbRounds                  *interface{}
+	name                      *interface{}
+	startsAt                  *interface{}
+	roundInterval             *interface{}
+	variant                   *VariantKey
+	description               *interface{}
+	rated                     *interface{}
+	password                  *interface{}
+	forbiddenPairings         *interface{}
+	manualPairings            *interface{}
+	chatFor                   *interface{}
 	conditionsMinRatingRating *interface{}
 	conditionsMaxRatingRating *interface{}
-	conditionsNbRatedGameNb *interface{}
-	conditionsAllowList *interface{}
+	conditionsNbRatedGameNb   *interface{}
+	conditionsAllowList       *interface{}
 }
 
 // Clock initial time in seconds
@@ -618,7 +605,7 @@ func (r ApiApiSwissUpdateRequest) StartsAt(startsAt interface{}) ApiApiSwissUpda
 	return r
 }
 
-// How long to wait between each round, in seconds.  Set to 99999999 to manually schedule each round from the tournament UI.  If empty or -1, a sensible value is picked automatically. 
+// How long to wait between each round, in seconds.  Set to 99999999 to manually schedule each round from the tournament UI.  If empty or -1, a sensible value is picked automatically.
 func (r ApiApiSwissUpdateRequest) RoundInterval(roundInterval interface{}) ApiApiSwissUpdateRequest {
 	r.roundInterval = &roundInterval
 	return r
@@ -647,19 +634,19 @@ func (r ApiApiSwissUpdateRequest) Password(password interface{}) ApiApiSwissUpda
 	return r
 }
 
-// Usernames of players that must not play together.  Two usernames per line, separated by a space. 
+// Usernames of players that must not play together.  Two usernames per line, separated by a space.
 func (r ApiApiSwissUpdateRequest) ForbiddenPairings(forbiddenPairings interface{}) ApiApiSwissUpdateRequest {
 	r.forbiddenPairings = &forbiddenPairings
 	return r
 }
 
-// Manual pairings for the next round.  Two usernames per line, separated by a space. Present players without a valid pairing will be given a bye, which is worth 1 point. Forfeited players will get 0 points. 
+// Manual pairings for the next round.  Two usernames per line, separated by a space. Present players without a valid pairing will be given a bye, which is worth 1 point. Forfeited players will get 0 points.
 func (r ApiApiSwissUpdateRequest) ManualPairings(manualPairings interface{}) ApiApiSwissUpdateRequest {
 	r.manualPairings = &manualPairings
 	return r
 }
 
-// Who can read and write in the chat. - 0  &#x3D; No-one - 10 &#x3D; Only team leaders - 20 &#x3D; Only team members - 30 &#x3D; All Lichess players 
+// Who can read and write in the chat. - 0  &#x3D; No-one - 10 &#x3D; Only team leaders - 20 &#x3D; Only team members - 30 &#x3D; All Lichess players
 func (r ApiApiSwissUpdateRequest) ChatFor(chatFor interface{}) ApiApiSwissUpdateRequest {
 	r.chatFor = &chatFor
 	return r
@@ -683,7 +670,7 @@ func (r ApiApiSwissUpdateRequest) ConditionsNbRatedGameNb(conditionsNbRatedGameN
 	return r
 }
 
-// Predefined list of usernames that are allowed to join, separated by commas. If this list is non-empty, then usernames absent from this list will be forbidden to join. Adding &#x60;%titled&#x60; to the list additionally allows any titled player to join. Example: &#x60;thibault,german11,%titled&#x60; 
+// Predefined list of usernames that are allowed to join, separated by commas. If this list is non-empty, then usernames absent from this list will be forbidden to join. Adding &#x60;%titled&#x60; to the list additionally allows any titled player to join. Example: &#x60;thibault,german11,%titled&#x60;
 func (r ApiApiSwissUpdateRequest) ConditionsAllowList(conditionsAllowList interface{}) ApiApiSwissUpdateRequest {
 	r.conditionsAllowList = &conditionsAllowList
 	return r
@@ -712,8 +699,8 @@ Additional restrictions:
 func (a *SwissTournamentsApiService) ApiSwissUpdate(ctx context.Context, id interface{}) ApiApiSwissUpdateRequest {
 	return ApiApiSwissUpdateRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -721,10 +708,10 @@ func (a *SwissTournamentsApiService) ApiSwissUpdate(ctx context.Context, id inte
 //  @return interface{}
 func (a *SwissTournamentsApiService) ApiSwissUpdateExecute(r ApiApiSwissUpdateRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwissTournamentsApiService.ApiSwissUpdate")
@@ -744,20 +731,8 @@ func (a *SwissTournamentsApiService) ApiSwissUpdateExecute(r ApiApiSwissUpdateRe
 	if r.clockIncrement == nil {
 		return localVarReturnValue, nil, reportError("clockIncrement is required and must be specified")
 	}
-	if *r.clockIncrement < 0 {
-		return localVarReturnValue, nil, reportError("clockIncrement must be greater than 0")
-	}
-	if *r.clockIncrement > 120 {
-		return localVarReturnValue, nil, reportError("clockIncrement must be less than 120")
-	}
 	if r.nbRounds == nil {
 		return localVarReturnValue, nil, reportError("nbRounds is required and must be specified")
-	}
-	if *r.nbRounds < 3 {
-		return localVarReturnValue, nil, reportError("nbRounds must be greater than 3")
-	}
-	if *r.nbRounds > 100 {
-		return localVarReturnValue, nil, reportError("nbRounds must be less than 100")
 	}
 
 	// to determine the Content-Type header
@@ -879,9 +854,9 @@ func (a *SwissTournamentsApiService) ApiSwissUpdateExecute(r ApiApiSwissUpdateRe
 }
 
 type ApiApiSwissWithdrawRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *SwissTournamentsApiService
-	id interface{}
+	id         interface{}
 }
 
 func (r ApiApiSwissWithdrawRequest) Execute() (*Ok, *http.Response, error) {
@@ -902,8 +877,8 @@ It's possible to join again later. Points are preserved.
 func (a *SwissTournamentsApiService) ApiSwissWithdraw(ctx context.Context, id interface{}) ApiApiSwissWithdrawRequest {
 	return ApiApiSwissWithdrawRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -911,10 +886,10 @@ func (a *SwissTournamentsApiService) ApiSwissWithdraw(ctx context.Context, id in
 //  @return Ok
 func (a *SwissTournamentsApiService) ApiSwissWithdrawExecute(r ApiApiSwissWithdrawRequest) (*Ok, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Ok
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Ok
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwissTournamentsApiService.ApiSwissWithdraw")
@@ -983,20 +958,20 @@ func (a *SwissTournamentsApiService) ApiSwissWithdrawExecute(r ApiApiSwissWithdr
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiApiTeamSwissRequest struct {
-	ctx context.Context
+type SwissApiTeamSwissRequest struct {
+	ctx        context.Context
 	ApiService *SwissTournamentsApiService
-	teamId interface{}
-	max *interface{}
+	teamId     interface{}
+	max        *interface{}
 }
 
 // How many tournaments to download.
-func (r ApiApiTeamSwissRequest) Max(max interface{}) ApiApiTeamSwissRequest {
+func (r SwissApiTeamSwissRequest) Max(max interface{}) SwissApiTeamSwissRequest {
 	r.max = &max
 	return r
 }
 
-func (r ApiApiTeamSwissRequest) Execute() (interface{}, *http.Response, error) {
+func (r SwissApiTeamSwissRequest) Execute() (interface{}, *http.Response, error) {
 	return r.ApiService.ApiTeamSwissExecute(r)
 }
 
@@ -1012,24 +987,24 @@ Tournaments are streamed as [ndjson](#section/Introduction/Streaming-with-ND-JSO
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param teamId
- @return ApiApiTeamSwissRequest
+ @return SwissApiTeamSwissRequest
 */
-func (a *SwissTournamentsApiService) ApiTeamSwiss(ctx context.Context, teamId interface{}) ApiApiTeamSwissRequest {
-	return ApiApiTeamSwissRequest{
+func (a *SwissTournamentsApiService) ApiTeamSwiss(ctx context.Context, teamId interface{}) SwissApiTeamSwissRequest {
+	return SwissApiTeamSwissRequest{
 		ApiService: a,
-		ctx: ctx,
-		teamId: teamId,
+		ctx:        ctx,
+		teamId:     teamId,
 	}
 }
 
 // Execute executes the request
 //  @return interface{}
-func (a *SwissTournamentsApiService) ApiTeamSwissExecute(r ApiApiTeamSwissRequest) (interface{}, *http.Response, error) {
+func (a *SwissTournamentsApiService) ApiTeamSwissExecute(r SwissApiTeamSwissRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwissTournamentsApiService.ApiTeamSwiss")
@@ -1102,15 +1077,15 @@ func (a *SwissTournamentsApiService) ApiTeamSwissExecute(r ApiApiTeamSwissReques
 }
 
 type ApiGamesBySwissRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *SwissTournamentsApiService
-	id interface{}
-	moves *interface{}
-	pgnInJson *interface{}
-	tags *interface{}
-	clocks *interface{}
-	evals *interface{}
-	opening *interface{}
+	id         interface{}
+	moves      *interface{}
+	pgnInJson  *interface{}
+	tags       *interface{}
+	clocks     *interface{}
+	evals      *interface{}
+	opening    *interface{}
 }
 
 // Include the PGN moves.
@@ -1131,19 +1106,19 @@ func (r ApiGamesBySwissRequest) Tags(tags interface{}) ApiGamesBySwissRequest {
 	return r
 }
 
-// Include clock comments in the PGN moves, when available.  Example: &#x60;2. exd5 { [%clk 1:01:27] } e5 { [%clk 1:01:28] }&#x60; 
+// Include clock comments in the PGN moves, when available.  Example: &#x60;2. exd5 { [%clk 1:01:27] } e5 { [%clk 1:01:28] }&#x60;
 func (r ApiGamesBySwissRequest) Clocks(clocks interface{}) ApiGamesBySwissRequest {
 	r.clocks = &clocks
 	return r
 }
 
-// Include analysis evaluation comments in the PGN, when available.  Example: &#x60;12. Bxf6 { [%eval 0.23] } a3 { [%eval -1.09] }&#x60; 
+// Include analysis evaluation comments in the PGN, when available.  Example: &#x60;12. Bxf6 { [%eval 0.23] } a3 { [%eval -1.09] }&#x60;
 func (r ApiGamesBySwissRequest) Evals(evals interface{}) ApiGamesBySwissRequest {
 	r.evals = &evals
 	return r
 }
 
-// Include the opening name.  Example: &#x60;[Opening \&quot;King&#39;s Gambit Accepted, King&#39;s Knight Gambit\&quot;]&#x60; 
+// Include the opening name.  Example: &#x60;[Opening \&quot;King&#39;s Gambit Accepted, King&#39;s Knight Gambit\&quot;]&#x60;
 func (r ApiGamesBySwissRequest) Opening(opening interface{}) ApiGamesBySwissRequest {
 	r.opening = &opening
 	return r
@@ -1172,8 +1147,8 @@ The game stream is throttled, depending on who is making the request:
 func (a *SwissTournamentsApiService) GamesBySwiss(ctx context.Context, id interface{}) ApiGamesBySwissRequest {
 	return ApiGamesBySwissRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -1181,10 +1156,10 @@ func (a *SwissTournamentsApiService) GamesBySwiss(ctx context.Context, id interf
 //  @return interface{}
 func (a *SwissTournamentsApiService) GamesBySwissExecute(r ApiGamesBySwissRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwissTournamentsApiService.GamesBySwiss")
@@ -1272,10 +1247,10 @@ func (a *SwissTournamentsApiService) GamesBySwissExecute(r ApiGamesBySwissReques
 }
 
 type ApiResultsBySwissRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *SwissTournamentsApiService
-	id interface{}
-	nb *interface{}
+	id         interface{}
+	nb         *interface{}
 }
 
 // Max number of players to fetch
@@ -1307,8 +1282,8 @@ Use on finished tournaments for guaranteed consistency.
 func (a *SwissTournamentsApiService) ResultsBySwiss(ctx context.Context, id interface{}) ApiResultsBySwissRequest {
 	return ApiResultsBySwissRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -1316,10 +1291,10 @@ func (a *SwissTournamentsApiService) ResultsBySwiss(ctx context.Context, id inte
 //  @return interface{}
 func (a *SwissTournamentsApiService) ResultsBySwissExecute(r ApiResultsBySwissRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwissTournamentsApiService.ResultsBySwiss")
@@ -1392,9 +1367,9 @@ func (a *SwissTournamentsApiService) ResultsBySwissExecute(r ApiResultsBySwissRe
 }
 
 type ApiSwissRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *SwissTournamentsApiService
-	id interface{}
+	id         interface{}
 }
 
 func (r ApiSwissRequest) Execute() (interface{}, *http.Response, error) {
@@ -1414,8 +1389,8 @@ Get detailed info about a Swiss tournament.
 func (a *SwissTournamentsApiService) Swiss(ctx context.Context, id interface{}) ApiSwissRequest {
 	return ApiSwissRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -1423,10 +1398,10 @@ func (a *SwissTournamentsApiService) Swiss(ctx context.Context, id interface{}) 
 //  @return interface{}
 func (a *SwissTournamentsApiService) SwissExecute(r ApiSwissRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwissTournamentsApiService.Swiss")
@@ -1496,9 +1471,9 @@ func (a *SwissTournamentsApiService) SwissExecute(r ApiSwissRequest) (interface{
 }
 
 type ApiSwissTrfRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *SwissTournamentsApiService
-	id interface{}
+	id         interface{}
 }
 
 func (r ApiSwissTrfRequest) Execute() (interface{}, *http.Response, error) {
@@ -1522,8 +1497,8 @@ Example: <https://lichess.org/swiss/j8rtJ5GL.trf>
 func (a *SwissTournamentsApiService) SwissTrf(ctx context.Context, id interface{}) ApiSwissTrfRequest {
 	return ApiSwissTrfRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -1531,10 +1506,10 @@ func (a *SwissTournamentsApiService) SwissTrf(ctx context.Context, id interface{
 //  @return interface{}
 func (a *SwissTournamentsApiService) SwissTrfExecute(r ApiSwissTrfRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwissTournamentsApiService.SwissTrf")

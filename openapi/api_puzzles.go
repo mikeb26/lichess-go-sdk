@@ -1,7 +1,7 @@
 /*
 Lichess.org API reference
 
-# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses. 
+# Introduction Welcome to the reference for the Lichess API! Lichess is free/libre, open-source chess server powered by volunteers and donations. - Get help in the [Lichess Discord channel](https://discord.gg/lichess) - API demo app with OAuth2 login, gameplay, and more: [source](https://github.com/lichess-org/api-demo) / [demo](https://lichess-org.github.io/api-demo/) - [Contribute to this documentation on Github](https://github.com/lichess-org/api) - Check out [Lichess widgets to embed in your website](https://lichess.org/developers) - [Download all Lichess rated games](https://database.lichess.org/) - [Download all Lichess puzzles with themes, ratings and votes](https://database.lichess.org/#puzzles)  ## Endpoint All requests go to `https://lichess.org` (unless otherwise specified).  ## Clients - [Python general API](https://github.com/ZackClements/berserk) - [MicroPython general API](https://github.com/mkomon/uberserk) - [Python general API - async](https://pypi.org/project/async-lichess-sdk) - [Python Lichess Bot](https://github.com/ShailChoksi/lichess-bot) - [Python Board API for Certabo](https://github.com/haklein/certabo-lichess) - [Java general API](https://github.com/tors42/chariot)  ## Rate limiting All requests are rate limited using various strategies, to ensure the API remains responsive for everyone. Only make one request at a time. If you receive an HTTP response with a [429 status](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#429), please wait a full minute before resuming API usage.  ## Streaming with ND-JSON Some API endpoints stream their responses as [Newline Delimited JSON a.k.a. **nd-json**](http://ndjson.org/), with one JSON object per line.  Here's a [JavaScript utility function](https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e) to help reading NDJSON streamed responses.
 
 API version: 2.0.0
 Contact: contact@lichess.org
@@ -20,14 +20,13 @@ import (
 	"strings"
 )
 
-
 // PuzzlesApiService PuzzlesApi service
 type PuzzlesApiService service
 
 type ApiApiPuzzleActivityRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *PuzzlesApiService
-	max *interface{}
+	max        *interface{}
 }
 
 // How many entries to download. Leave empty to download all activity.
@@ -56,7 +55,7 @@ We recommend streaming the response, for it can be very long.
 func (a *PuzzlesApiService) ApiPuzzleActivity(ctx context.Context) ApiApiPuzzleActivityRequest {
 	return ApiApiPuzzleActivityRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -64,10 +63,10 @@ func (a *PuzzlesApiService) ApiPuzzleActivity(ctx context.Context) ApiApiPuzzleA
 //  @return PuzzleRoundJson
 func (a *PuzzlesApiService) ApiPuzzleActivityExecute(r ApiApiPuzzleActivityRequest) (*PuzzleRoundJson, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *PuzzleRoundJson
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PuzzleRoundJson
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PuzzlesApiService.ApiPuzzleActivity")
@@ -139,7 +138,7 @@ func (a *PuzzlesApiService) ApiPuzzleActivityExecute(r ApiApiPuzzleActivityReque
 }
 
 type ApiApiPuzzleDailyRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *PuzzlesApiService
 }
 
@@ -161,7 +160,7 @@ Alternatively, you can [post it in your slack workspace](https://lichess.org/dai
 func (a *PuzzlesApiService) ApiPuzzleDaily(ctx context.Context) ApiApiPuzzleDailyRequest {
 	return ApiApiPuzzleDailyRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -169,10 +168,10 @@ func (a *PuzzlesApiService) ApiPuzzleDaily(ctx context.Context) ApiApiPuzzleDail
 //  @return interface{}
 func (a *PuzzlesApiService) ApiPuzzleDailyExecute(r ApiApiPuzzleDailyRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PuzzlesApiService.ApiPuzzleDaily")
@@ -241,9 +240,9 @@ func (a *PuzzlesApiService) ApiPuzzleDailyExecute(r ApiApiPuzzleDailyRequest) (i
 }
 
 type ApiApiPuzzleDashboardRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *PuzzlesApiService
-	days interface{}
+	days       interface{}
 }
 
 func (r ApiApiPuzzleDashboardRequest) Execute() (interface{}, *http.Response, error) {
@@ -267,8 +266,8 @@ Allows re-creating the [improvement/strengths](https://lichess.org/training/dash
 func (a *PuzzlesApiService) ApiPuzzleDashboard(ctx context.Context, days interface{}) ApiApiPuzzleDashboardRequest {
 	return ApiApiPuzzleDashboardRequest{
 		ApiService: a,
-		ctx: ctx,
-		days: days,
+		ctx:        ctx,
+		days:       days,
 	}
 }
 
@@ -276,10 +275,10 @@ func (a *PuzzlesApiService) ApiPuzzleDashboard(ctx context.Context, days interfa
 //  @return interface{}
 func (a *PuzzlesApiService) ApiPuzzleDashboardExecute(r ApiApiPuzzleDashboardRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PuzzlesApiService.ApiPuzzleDashboard")
@@ -293,9 +292,6 @@ func (a *PuzzlesApiService) ApiPuzzleDashboardExecute(r ApiApiPuzzleDashboardReq
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.days < 1 {
-		return localVarReturnValue, nil, reportError("days must be greater than 1")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -352,9 +348,9 @@ func (a *PuzzlesApiService) ApiPuzzleDashboardExecute(r ApiApiPuzzleDashboardReq
 }
 
 type ApiApiPuzzleIdRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *PuzzlesApiService
-	id interface{}
+	id         interface{}
 }
 
 func (r ApiApiPuzzleIdRequest) Execute() (interface{}, *http.Response, error) {
@@ -373,8 +369,8 @@ Get a single Lichess puzzle in JSON format.
 func (a *PuzzlesApiService) ApiPuzzleId(ctx context.Context, id interface{}) ApiApiPuzzleIdRequest {
 	return ApiApiPuzzleIdRequest{
 		ApiService: a,
-		ctx: ctx,
-		id: id,
+		ctx:        ctx,
+		id:         id,
 	}
 }
 
@@ -382,10 +378,10 @@ func (a *PuzzlesApiService) ApiPuzzleId(ctx context.Context, id interface{}) Api
 //  @return interface{}
 func (a *PuzzlesApiService) ApiPuzzleIdExecute(r ApiApiPuzzleIdRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PuzzlesApiService.ApiPuzzleId")
@@ -455,10 +451,10 @@ func (a *PuzzlesApiService) ApiPuzzleIdExecute(r ApiApiPuzzleIdRequest) (interfa
 }
 
 type ApiApiStormDashboardRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *PuzzlesApiService
-	username interface{}
-	days *interface{}
+	username   interface{}
+	days       *interface{}
 }
 
 // How many days of history to return
@@ -488,8 +484,8 @@ Use `?days=0` if you only care about the highscores.
 func (a *PuzzlesApiService) ApiStormDashboard(ctx context.Context, username interface{}) ApiApiStormDashboardRequest {
 	return ApiApiStormDashboardRequest{
 		ApiService: a,
-		ctx: ctx,
-		username: username,
+		ctx:        ctx,
+		username:   username,
 	}
 }
 
@@ -497,10 +493,10 @@ func (a *PuzzlesApiService) ApiStormDashboard(ctx context.Context, username inte
 //  @return interface{}
 func (a *PuzzlesApiService) ApiStormDashboardExecute(r ApiApiStormDashboardRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PuzzlesApiService.ApiStormDashboard")
@@ -573,7 +569,7 @@ func (a *PuzzlesApiService) ApiStormDashboardExecute(r ApiApiStormDashboardReque
 }
 
 type ApiRacerPostRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *PuzzlesApiService
 }
 
@@ -597,7 +593,7 @@ and manually start the race when enough players have joined.
 func (a *PuzzlesApiService) RacerPost(ctx context.Context) ApiRacerPostRequest {
 	return ApiRacerPostRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -605,10 +601,10 @@ func (a *PuzzlesApiService) RacerPost(ctx context.Context) ApiRacerPostRequest {
 //  @return interface{}
 func (a *PuzzlesApiService) RacerPostExecute(r ApiRacerPostRequest) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  interface{}
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue interface{}
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PuzzlesApiService.RacerPost")
