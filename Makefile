@@ -6,7 +6,7 @@ OPENAPIGENGO=java -jar ./openapi-generator-cli.jar generate -g go -o ./openapi -
 .PHONY: build
 build: vendor openapi example FORCE
 
-vendor: go.mod
+vendor: go.mod openapi
 	go mod download
 	go mod vendor
 
