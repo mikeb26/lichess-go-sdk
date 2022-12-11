@@ -29,6 +29,6 @@ example: openapi FORCE
 
 .PHONY: clean
 clean:
-	rm -rf openapi
+	rm -f ./example
 
 FORCE:

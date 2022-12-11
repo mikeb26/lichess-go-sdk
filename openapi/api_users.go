@@ -572,12 +572,12 @@ func (a *UsersApiService) ApiUserRatingHistoryExecute(r ApiApiUserRatingHistoryR
 type ApiApiUsersRequest struct {
 	ctx        context.Context
 	ApiService *UsersApiService
-	body       *interface{}
+	body       *string
 }
 
 // User IDs separated by commas.
-func (r ApiApiUsersRequest) Body(body interface{}) ApiApiUsersRequest {
-	r.body = &body
+func (r ApiApiUsersRequest) Body(body *string) ApiApiUsersRequest {
+	r.body = body
 	return r
 }
 
